@@ -2,11 +2,7 @@
 import { useEffect, useState } from "react";
 
 export default function AnotherPage() {
-  const [hadees, setHadees] = useState<{
-    number: number;
-    arab: string;
-    id: string;
-  } | null>(null);
+  const [hadees, setHadees] = useState<any>(null);
 
   async function getClientIP() {
   const res = await fetch("https://api.ipify.org?format=json");
@@ -57,7 +53,7 @@ getClientIP().then(ip => console.log("Client IP:", ip));
       <p>Hadith Number: {hadees?.hadiths[0].hadithnumber}</p>
       </div>
       <p className="rounded overflow-hidden shadow-lg p-4 mt-4 bg-white text-black" >{hadees?.hadiths[0].text}</p>
-      {hadees?.hadiths[0] && hadees?.hadiths[0].grades?.map((grade, index) => (
+      {hadees?.hadiths[0] && hadees?.hadiths[0].grades?.map((grade:any, index:number) => (
         <div key={index}  className="rounded overflow-hidden shadow-lg p-4 mt-4 bg-white text-black">
           <p>
             {grade.grade} - {grade.name}
