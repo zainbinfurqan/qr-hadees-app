@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 
 export default function AnotherPage() {
   const [hadees, setHadees] = useState<any>(null);
+  const [totalDonations, setTotalDonations] = useState<number>(0);
 
   async function getClientIP() {
   const res = await fetch("https://api.ipify.org?format=json");
@@ -10,12 +11,40 @@ export default function AnotherPage() {
   return data.ip; // public IP
 }
 
+ const [scans, setScans] = useState([]);
+
+  useEffect(() => {
+    fetch("/api/donation")
+      .then(res => res.json())
+      .then(setScans);
+  }, []);
+
+useEffect(() => {
+  const postDonation = async () => {
+    await fetch("/api/donation", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        amount: 0.10,
+      })
+    });
+  };
+  postDonation();
+}, []);
+
+  useEffect(() => {
+    const total = scans.reduce((sum, scan:any) => sum + (scan?.amount || 0), 0);
+    setTotalDonations(total);
+
+  }, [scans]);
+
   useEffect(() => {
     async function fetchHadees() {
       try {
         const res = await fetch("/api/random-hadees");
         const data = await res.json();
-        console.log("data",data.text)
         setHadees(data.text);
       } catch (err) {
         console.error(err);
@@ -39,14 +68,13 @@ export default function AnotherPage() {
   time: new Date().toISOString(),  // timestamp
 };
 
-console.log(deviceInfo);
 getClientIP().then(ip => console.log("Client IP:", ip));
 
     fetchHadees();
   }, []);
-
   return (
     hadees && <div className=" max-w-md rounded overflow-hidden shadow-lg mx-auto p-6 mt-10 bg-green-900 text-center text-white">
+      <p className="text-left text-xs">Total Donation: <span className="font-bold">{totalDonations.toFixed(2)} RM</span></p>
       <h1 className="font-bold text-xl mb-2">Hadees</h1>
       <div className="flex flex-row text-center justify-center gap-4 mb-4 rounded overflow-hidden shadow-lg p-4 mt-4 bg-white text-black">
       <p>Arabic Number: {hadees?.hadiths[0].arabicnumber}</p>
@@ -94,7 +122,7 @@ getClientIP().then(ip => console.log("Client IP:", ip));
         <p>5. Humanitarian Care Malaysia (MyCARE) - https://mycare.org.my/</p> */}
         </div>
         <div className="flex flex-row rounded overflow-hidden shadow-lg p-4 mt-4 bg-gray-800 text-white text-center justify-center gap-4">
-        <p className="text-sm">Report at zain.ahmed199524@gmail.com, If you found any wrong hadith</p>
+        <p className="text-xs">Report at zain.ahmed199524@gmail.com, If you found any wrong hadith</p>
         </div>
     </div>
   );

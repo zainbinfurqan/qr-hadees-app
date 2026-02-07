@@ -19,10 +19,12 @@ export default function QRPage() {
 
   return (
     <div style={{ textAlign: "center", marginTop: "50px" }}>
-      <h1>Scan This QR Code</h1>
+      <h1 className="font-bold">Scan This QR Code</h1>
         <canvas style={{
             margin:'0 auto'
         }} ref={canvasRef}></canvas>
+      <h1 className="text-sm">OR click to navigate without scanning</h1>
+      <span className="font-bold"><a href="/another">Show me hadith</a></span>
     </div>
   );
 }
