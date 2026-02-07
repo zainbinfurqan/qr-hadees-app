@@ -74,6 +74,7 @@ getClientIP().then(ip => console.log("Client IP:", ip));
   }, []);
   return (
     hadees && <div className=" max-w-md rounded overflow-hidden shadow-lg mx-auto p-6 mt-10 bg-green-900 text-center text-white">
+      <h1 className="font-bold text-xl mb-2">Only for testing purpose for now</h1>
       <p className="text-left text-xs">Total Donation: <span className="font-bold">{totalDonations.toFixed(2)} RM</span></p>
       <h1 className="font-bold text-xl mb-2">Hadees</h1>
       <div className="flex flex-row text-center justify-center gap-4 mb-4 rounded overflow-hidden shadow-lg p-4 mt-4 bg-white text-black">
