@@ -22,6 +22,16 @@ export default function AnotherPage() {
       meta.content = 'Hadith displaying page.';
       document.head.appendChild(meta);
     }
+// check stored time (prefer "last_hadith_read", fallback to any timestamp stored in "hadith_read_count")
+    const storedTime = getLocalStorageItem("last_hadith_read") || getLocalStorageItem("hadith_read_count");
+    if (storedTime) {
+      const ts = typeof storedTime === "string" ? Date.parse(storedTime) : Number(storedTime);
+      if (!isNaN(ts) && ts <= Date.now()) {
+        // time is equal or greater than now -> reset read count to 0
+        setLocalStorageItem("hadith_read_count", 0);
+        setHadithReadCount(0);
+      }
+    }
   }, []);
 
 const books = {
@@ -78,7 +88,6 @@ useEffect(() => {
   }, [scans]);
 
   useEffect(() => {
-    console.log("lastHadithRead",lastHadithRead)
     if (!lastHadithRead) return;
     const interval = setInterval(() => {
       const nextTime = new Date(lastHadithRead).getTime();
@@ -92,12 +101,10 @@ useEffect(() => {
         const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
         const seconds = Math.floor((diff % (1000 * 60)) / 1000);
         setRemainingTime(`${hours}h ${minutes}m ${seconds}s remaining`);
-  console.log("remainingTime",`${hours}h ${minutes}m ${seconds}s remaining`)
       }
     }, 1000);
     return () => clearInterval(interval);
   }, [lastHadithRead]);
-  console.log("remainingTime",remainingTime)
   
     async function fetchHadees() {
       try {
@@ -106,7 +113,6 @@ useEffect(() => {
         setHadees(data.text);
       } catch (err) {
         console.error(err);
-        // setHadees("Failed to load hadees.");
       }
     }
 
