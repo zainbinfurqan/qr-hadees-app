@@ -68,6 +68,8 @@ function getLinkType(url:any) {
 
 const LinkCard = ({ url, children } : { url: string, children: React.ReactNode }) => {
   const type = getLinkType(url);
+    const normalizedUrl = typeof url === "string" ? url.replace(/^\/+(?=https?:\/\/)/i, "") : url;
+
   const badgeText =
     type === "youtube" ? "YouTube" :
     type === "pdf" ? "PDF" :
@@ -83,7 +85,7 @@ const LinkCard = ({ url, children } : { url: string, children: React.ReactNode }
 
   return (
     <a
-      href={url}
+      href={normalizedUrl}
       target="_blank"
       rel="noopener noreferrer"
       aria-label={badgeText ? `Open ${badgeText} (new tab)` : "Open link (new tab)"}
