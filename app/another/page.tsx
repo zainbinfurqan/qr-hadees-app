@@ -121,7 +121,6 @@ useEffect(() => {
       {hadithReadCount > 0 && <p className="text-center rounded overflow-hidden shadow-lg p-4 mt-4 bg-white text-black font-semibold text-blue-600">{remainingTime}</p>}
       {hadees && <div className=" max-w-md rounded overflow-hidden shadow-lg mx-auto p-6 mt-10 bg-green-900 text-center text-white">
       {/* <h1 className="font-bold text-xl mb-2">Only for testing purpose for now</h1> */}
-      
       <div className="flex flex-row justify-between">
       <a href="/" className="flex">
       <span aria-hidden="true" className="mr-1">←</span>
@@ -131,31 +130,31 @@ useEffect(() => {
         </div>
       <h1 className="font-bold text-xl mb-2">Hadees</h1>
       <div className="flex flex-row text-center justify-center gap-4 mb-4 rounded overflow-hidden shadow-lg p-4 mt-4 bg-white text-black">
-      <p>Arabic Number: {hadees?.hadiths[0].arabicnumber}</p>
-      <p>Hadith Number: {hadees?.hadiths[0].hadithnumber}</p>
+      {hadees?.hadiths && hadees?.hadiths.length >0 && <p>Arabic Number: {hadees?.hadiths[0].arabicnumber}</p>}
+      {hadees?.hadiths && hadees?.hadiths.length >0 && <p>Hadith Number: {hadees?.hadiths[0].hadithnumber}</p>}
       </div>
-      <a href={linkToHadith} target="_blank" rel="noopener noreferrer" className="block">
+      {hadees?.hadiths && hadees?.hadiths.length >0 && <a href={linkToHadith} target="_blank" rel="noopener noreferrer" className="block">
         <p className="rounded overflow-hidden shadow-lg p-4 mt-4 bg-white text-blue-600 hover:bg-blue-50 hover:shadow-xl hover:scale-105 transition-all duration-200 cursor-pointer font-semibold" >
           {hadees?.hadiths[0].text}
           <span className="ml-2">↗</span>
         </p>
-      </a>
-      {hadees?.hadiths[0] && hadees?.hadiths[0].grades?.map((grade:any, index:number) => (
+      </a>}
+      {hadees?.hadiths && hadees?.hadiths.length >0 && hadees?.hadiths[0].grades?.map((grade:any, index:number) => (
         <div key={index}  className="rounded overflow-hidden shadow-lg p-4 mt-4 bg-white text-black">
           <p>
             {grade.grade} - {grade.name}
           </p>
         </div>
       ))}
-      <div className="flex flex-row rounded overflow-hidden shadow-lg p-4 mt-4 bg-white text-black text-center justify-center gap-4">
+      {hadees?.hadiths && hadees?.hadiths.length >0 && <div className="flex flex-row rounded overflow-hidden shadow-lg p-4 mt-4 bg-white text-black text-center justify-center gap-4">
       <p >book: {hadees?.hadiths[0].reference.book} | hadith: {hadees?.hadiths[0].reference.hadith} | name: {hadees?.metadata.name}</p>
-      </div>
-      {Object.keys(hadees?.metadata.section).map((key) => (
+      </div>}
+      {hadees?.metadata && hadees?.metadata.section && Object.keys(hadees?.metadata.section).map((key) => (
         <div key={key} className="rounded overflow-hidden shadow-lg p-4 mt-4 bg-white text-black text-center justify-center gap-4">
           <p style={{ fontSize: "1.2rem" }}>{hadees?.metadata.section[key as keyof typeof hadees.metadata.section]}</p>
         </div>
       ))}
-      {Object.keys(hadees?.metadata.section_detail).map((key) => (
+      {hadees?.metadata && hadees?.metadata.section_detail && Object.keys(hadees?.metadata.section_detail).map((key) => (
         <div key={key}>
         <div className="flex flex-row rounded overflow-hidden shadow-lg p-4 mt-4 bg-white text-black text-center justify-center gap-4">
 

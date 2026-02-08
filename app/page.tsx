@@ -14,7 +14,8 @@ export default function Home() {
     "https://apps.apple.com/my/app/think-quran/id6449696143",
     "https://youtube.com/playlist?list=PLOgzoHFjWOqNVDWPGHwjzrEQ9bgMKSKQ1&si=aLTASKq1MT-YRA9V",
     "https://www.dropbox.com/scl/fi/vbiuh9s8jetdt07831o9x/Reflecting_On_the_Names_of_Allah.pdf?rlkey=rebw2nfrfhce0yeyxrk6z3g9z&st=txo6puou&dl=0",
-    "https://youtube.com/shorts/pJ7o-ZKyIZQ?si=XcJ-el3KVHstCBbK"
+    "https://youtube.com/shorts/pJ7o-ZKyIZQ?si=XcJ-el3KVHstCBbK",
+    "https://www.dropbox.com/scl/fo/w496a8jr214tw7zt8irt0/AAV9WoAHCP7d-JGE7kY30hA?rlkey=awb8vx0e1kt6uty77ct6h9ys8&st=33sq50we&dl=0"
   ]
   return (
     <div className="flex py-10 flex-col min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
@@ -42,6 +43,9 @@ export default function Home() {
 </LinkCard>
 <LinkCard url={links[7]}>
   {"How to prepare for Ramadan | Moeen Mahmood | Short"}
+</LinkCard>
+<LinkCard url={links[8]}>
+  {"Qoutes for daily motivation and reflection"}
 </LinkCard>
     </div>
   );
