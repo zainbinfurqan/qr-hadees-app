@@ -1,4 +1,9 @@
-import Image from "next/image";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Learn Hadees",
+  description: "An app to learn random hadees with QR code scanning functionality.",
+};
 
 export default function Home() {
   const links = [

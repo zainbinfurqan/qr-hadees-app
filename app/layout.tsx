@@ -8,10 +8,6 @@ const nunito = Nunito({
   weight: ['200','300','400','500','600','700','800','900'],
   variable: '--font-nunito'
 })
-export const metadata: Metadata = {
-  title: "Learn Hadees",
-  description: "An app to learn random hadees with QR code scanning functionality.",
-};
 
 export default function RootLayout({
   children,

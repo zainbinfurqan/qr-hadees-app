@@ -11,11 +11,18 @@ export default function AnotherPage() {
   const [lastHadithRead, setLastHadithRead] = useState<string>("");
   const [remainingTime, setRemainingTime] = useState<string>("");
 
-//   async function getClientIP() {
-//   const res = await fetch(process.env.NEXT_PUBLIC_CLIENT_IP_URL || "https://api.ipify.org?format=json");
-//   const data = await res.json();
-//   return data.ip; // public IP
-// }
+  useEffect(() => {
+    document.title = 'Hadith';
+    const descTag = document.querySelector('meta[name="description"]');
+    if (descTag) {
+      descTag.setAttribute('content', 'Hadith displaying page.');
+    } else {
+      const meta = document.createElement('meta');
+      meta.name = 'description';
+      meta.content = 'Hadith displaying page.';
+      document.head.appendChild(meta);
+    }
+  }, []);
 
 const books = {
   "Sunan an Nasai": "Nasai",

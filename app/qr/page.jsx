@@ -7,6 +7,19 @@ export default function QRPage() {
   const canvasRef = useRef();
 
   useEffect(() => {
+    document.title = 'QR Code for Hadees';
+    const descTag = document.querySelector('meta[name="description"]');
+    if (descTag) {
+      descTag.setAttribute('content', 'scan this QR code to view a random hadith.');
+    } else {
+      const meta = document.createElement('meta');
+      meta.name = 'description';
+      meta.content = 'scan this QR code to view a random hadith.';
+      document.head.appendChild(meta);
+    }
+  }, []);
+
+  useEffect(() => {
     const scanUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/another`;
     QRCode.toCanvas(canvasRef.current, scanUrl, {
       width: 300, // this sets both width and height
