@@ -1,23 +1,33 @@
 'use client'
+
 import { useEffect, useState } from "react";
+import { getLocalStorageItem, setLocalStorageItem } from "../helpers/localStorage";
 
 export default function AnotherPage() {
   const [hadees, setHadees] = useState<any>(null);
   const [totalDonations, setTotalDonations] = useState<number>(0);
+  const [hadithReadCount, setHadithReadCount] = useState<number>(0);
+  const [linkToHadith, setLinkToHadith] = useState<string>("");
+  const [lastHadithRead, setLastHadithRead] = useState<string>("");
+  const [remainingTime, setRemainingTime] = useState<string>("");
 
-  async function getClientIP() {
-  const res = await fetch("https://api.ipify.org?format=json");
-  const data = await res.json();
-  return data.ip; // public IP
+//   async function getClientIP() {
+//   const res = await fetch(process.env.NEXT_PUBLIC_CLIENT_IP_URL || "https://api.ipify.org?format=json");
+//   const data = await res.json();
+//   return data.ip; // public IP
+// }
+
+const books = {
+  "Sunan an Nasai": "Nasai",
+  "Sahih Muslim": "Muslim",
+  "Sunan Abu Dawud": "AbuDawood",
+  "Jami At Tirmidhi": "Tirmidhi",
+  "Sunan Ibn Majah": "IbnMajah",
+  "Sahih al Bukhari": "Bukhari"
 }
 
  const [scans, setScans] = useState([]);
 
-  useEffect(() => {
-    fetch("/api/donation")
-      .then(res => res.json())
-      .then(setScans);
-  }, []);
 
 useEffect(() => {
   const postDonation = async () => {
@@ -31,8 +41,28 @@ useEffect(() => {
       })
     });
   };
+  const count = getLocalStorageItem("hadith_read_count") || "0";
+  if (parseInt(count) >= 0 && parseInt(count) < 3) {
+    setLocalStorageItem("hadith_read_count", parseInt(count) + 1);
+    setLocalStorageItem("last_hadith_read", new Date(Date.now() + 10 * 60 * 60 * 1000).toISOString());
   postDonation();
+  fetchHadees();
+  }else{
+    setHadithReadCount(parseInt(count));
+    setLastHadithRead(getLocalStorageItem("last_hadith_read") || "");
+  }
 }, []);
+
+useEffect(() => {
+  hadees && setLinkToHadith(`https://sunnah.com/${books[hadees?.metadata.name as keyof typeof books]}:${hadees?.hadiths[0].hadithnumber}`);
+},[hadees])
+
+  useEffect(() => {
+    fetch("/api/donation")
+      .then(res => res.json())
+      .then(setScans);
+  }, []);
+
 
   useEffect(() => {
     const total = scans.reduce((sum, scan:any) => sum + (scan?.amount || 0), 0);
@@ -41,6 +71,27 @@ useEffect(() => {
   }, [scans]);
 
   useEffect(() => {
+    console.log("lastHadithRead",lastHadithRead)
+    if (!lastHadithRead) return;
+    const interval = setInterval(() => {
+      const nextTime = new Date(lastHadithRead).getTime();
+      const now = new Date().getTime();
+      const diff = nextTime - now;
+      
+      if (diff <= 0) {
+        setRemainingTime("Ready! You can read a new hadith now.");
+      } else {
+        const hours = Math.floor(diff / (1000 * 60 * 60));
+        const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+        setRemainingTime(`${hours}h ${minutes}m ${seconds}s remaining`);
+  console.log("remainingTime",`${hours}h ${minutes}m ${seconds}s remaining`)
+      }
+    }, 1000);
+    return () => clearInterval(interval);
+  }, [lastHadithRead]);
+  console.log("remainingTime",remainingTime)
+  
     async function fetchHadees() {
       try {
         const res = await fetch("/api/random-hadees");
@@ -51,37 +102,24 @@ useEffect(() => {
         // setHadees("Failed to load hadees.");
       }
     }
-    const deviceInfo = {
-  ua: navigator.userAgent,         // Full user agent string
-  browser: (() => {
-    const ua = navigator.userAgent;
-    if (/firefox/i.test(ua)) return "Firefox";
-    if (/chrome|chromium|crios/i.test(ua)) return "Chrome";
-    if (/safari/i.test(ua)) return "Safari";
-    if (/edg/i.test(ua)) return "Edge";
-    if (/opr|opera/i.test(ua)) return "Opera";
-    return "Other";
-  })(),
-  platform: navigator.platform,    // OS/platform
-  language: navigator.language,    // e.g., "en-US"
-  screen: `${screen.width}x${screen.height}`, // screen resolution
-  time: new Date().toISOString(),  // timestamp
-};
 
-getClientIP().then(ip => console.log("Client IP:", ip));
-
-    fetchHadees();
-  }, []);
   return (
-    hadees && <div className=" max-w-md rounded overflow-hidden shadow-lg mx-auto p-6 mt-10 bg-green-900 text-center text-white">
-      <h1 className="font-bold text-xl mb-2">Only for testing purpose for now</h1>
+    <>
+      {hadithReadCount > 0 && <p className="text-center rounded overflow-hidden shadow-lg p-4 mt-4 bg-white text-black font-semibold text-blue-600">{remainingTime}</p>}
+      {hadees && <div className=" max-w-md rounded overflow-hidden shadow-lg mx-auto p-6 mt-10 bg-green-900 text-center text-white">
+      {/* <h1 className="font-bold text-xl mb-2">Only for testing purpose for now</h1> */}
       <p className="text-left text-xs">Total Donation: <span className="font-bold">{totalDonations.toFixed(2)} RM</span></p>
       <h1 className="font-bold text-xl mb-2">Hadees</h1>
       <div className="flex flex-row text-center justify-center gap-4 mb-4 rounded overflow-hidden shadow-lg p-4 mt-4 bg-white text-black">
       <p>Arabic Number: {hadees?.hadiths[0].arabicnumber}</p>
       <p>Hadith Number: {hadees?.hadiths[0].hadithnumber}</p>
       </div>
-      <p className="rounded overflow-hidden shadow-lg p-4 mt-4 bg-white text-black" >{hadees?.hadiths[0].text}</p>
+      <a href={linkToHadith} target="_blank" rel="noopener noreferrer" className="block">
+        <p className="rounded overflow-hidden shadow-lg p-4 mt-4 bg-white text-blue-600 hover:bg-blue-50 hover:shadow-xl hover:scale-105 transition-all duration-200 cursor-pointer font-semibold" >
+          {hadees?.hadiths[0].text}
+          <span className="ml-2">↗</span>
+        </p>
+      </a>
       {hadees?.hadiths[0] && hadees?.hadiths[0].grades?.map((grade:any, index:number) => (
         <div key={index}  className="rounded overflow-hidden shadow-lg p-4 mt-4 bg-white text-black">
           <p>
@@ -125,6 +163,7 @@ getClientIP().then(ip => console.log("Client IP:", ip));
         <div className="flex flex-row rounded overflow-hidden shadow-lg p-4 mt-4 bg-gray-800 text-white text-center justify-center gap-4">
         <p className="text-xs">Report at zain.ahmed199524@gmail.com, If you found any wrong hadith</p>
         </div>
-    </div>
+      </div>}
+    </>
   );
 }

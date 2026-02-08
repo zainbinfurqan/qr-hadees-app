@@ -1,65 +1,97 @@
 import Image from "next/image";
 
 export default function Home() {
+  const links = [
+    "/https://www.dropbox.com/scl/fi/kfhk0787n9clf2cgk7r9i/Khutbah-6th-Feb.pdf?rlkey=awwxj3hb25gpd8vzqgcvpsg0q&st=n171559a&dl=0",
+    "https://www.dropbox.com/scl/fi/r8oo2ks35thmth3bs2ro5/Khutbah-30th-Jan.pdf?rlkey=zn2qiu73vjgxm88sgdc3ghkdq&st=5cvr7vzx&dl=0",
+    "https://www.facebook.com/watch/?v=1704157787629794",
+    "https://www.youtube.com/watch?v=A1JncuGkBmY",
+    "https://apps.apple.com/my/app/think-quran/id6449696143",
+    "https://youtube.com/playlist?list=PLOgzoHFjWOqNVDWPGHwjzrEQ9bgMKSKQ1&si=aLTASKq1MT-YRA9V",
+    "https://www.dropbox.com/scl/fi/vbiuh9s8jetdt07831o9x/Reflecting_On_the_Names_of_Allah.pdf?rlkey=rebw2nfrfhce0yeyxrk6z3g9z&st=txo6puou&dl=0",
+    "https://youtube.com/shorts/pJ7o-ZKyIZQ?si=XcJ-el3KVHstCBbK"
+  ]
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
+    <div className="flex py-10 flex-col min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
+        <a className="self-end mx-2 top-4 right-4 bg-blue-500 hover:bg-blue-700 text-white text-xs font-semibold py-1 px-2 rounded" href="/qr">Show me QR</a>
+      <LinkCard url={links[0]}>
+  {"Khutbah 6th Feb"}
+</LinkCard>
+<LinkCard url={links[1]}>
+  {"Khutbah 30th Jan"}
+</LinkCard>
+<LinkCard url={links[2]}>
+  {"Khutbah’s you could listen to pre-Ramadan"}
+</LinkCard>
+<LinkCard url={links[3]}>
+  {"Spiritual Talk | WSG | Moeen Mahmood"}
+</LinkCard>
+<LinkCard url={links[4]}>
+  {" ⁠App that teaches 80% of the words in Quran Duo Lingo style"}
+</LinkCard>
+<LinkCard url={links[5]}>
+  {"⁠Project Zamzam, visual summary of Surahs playlist"}
+</LinkCard>
+<LinkCard url={links[6]}>
+  {"Reflecting_On_the_Names_of_Allah"}
+</LinkCard>
+<LinkCard url={links[7]}>
+  {"How to prepare for Ramadan | Moeen Mahmood | Short"}
+</LinkCard>
     </div>
+  );
+}
+
+function getLinkType(url:any) {
+  if (!url) return "other";
+  const lower = url.toLowerCase();
+  if (lower.includes("youtube.com") || lower.includes("youtu.be")) return "youtube";
+  if (lower.includes("facebook.com") || lower.includes("fb.watch") || lower.includes("fb.com") || lower.includes("m.facebook.com")) return "facebook";
+  if (lower.includes("apps.apple.com")) return "app-apple";
+  if (lower.includes("play.google.com")) return "app-play";
+  try {
+    const parsed = new URL(url);
+    const path = parsed.pathname.toLowerCase();
+    if (path.endsWith(".pdf")) return "pdf";
+  } catch (e) {
+    // ignore invalid URL parsing
+  }
+  // handle links where .pdf appears before query params (e.g. Dropbox share links)
+  if (lower.match(/\.pdf(\b|$|[?#])/)) return "pdf";
+  return "other";
+}
+
+const LinkCard = ({ url, children } : { url: string, children: React.ReactNode }) => {
+  const type = getLinkType(url);
+  const badgeText =
+    type === "youtube" ? "YouTube" :
+    type === "pdf" ? "PDF" :
+    type === "facebook" ? "Facebook" :
+    type === "app-apple" ? "App Store" :
+    type === "app-play" ? "Google Play" : null;
+  const badgeClass =
+    type === "youtube" ? "bg-red-600" :
+    type === "pdf" ? "bg-gray-800" :
+    type === "facebook" ? "bg-blue-600" :
+    type === "app-apple" ? "bg-black" :
+    type === "app-play" ? "bg-green-600" : "bg-transparent";
+
+  return (
+    <a
+      href={url}
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label={badgeText ? `Open ${badgeText} (new tab)` : "Open link (new tab)"}
+      className="block"
+    >
+      <div className=" w-96 text-center relative rounded rounded-lg overflow-hidden shadow-lg p-4 mt-4 bg-white text-black hover:shadow-xl transition">
+        {badgeText && (
+          <span className={` absolute top-2 right-2 text-xs px-2 py-1 rounded text-white ${badgeClass}`}>
+            {badgeText} {(type === "youtube" || type === "facebook" || type === "app-apple" || type === "app-play") ? "▶" : ""}
+          </span>
+        )}
+        <div className="mt-5">{children}</div>
+      </div>
+    </a>
   );
 }

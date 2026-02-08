@@ -23,8 +23,8 @@ export default function QRPage() {
         <canvas style={{
             margin:'0 auto'
         }} ref={canvasRef}></canvas>
-      <h1 className="text-sm">OR click to navigate without scanning</h1>
-      <span className="font-bold"><a href="/another">Show me hadith</a></span>
+      <h1 className="text-xs">OR click to navigate without scanning</h1>
+      <span className="text-sm underline"><a href="/another">Show me hadith</a></span>
     </div>
   );
 }

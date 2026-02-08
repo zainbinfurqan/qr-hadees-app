@@ -10,7 +10,6 @@ export async function GET() {
       .collection("donation")
       .find({})
       .sort({ time: -1 })
-      .limit(50)
       .toArray();
 
     return NextResponse.json(scans);
