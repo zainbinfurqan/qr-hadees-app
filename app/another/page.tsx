@@ -121,7 +121,14 @@ useEffect(() => {
       {hadithReadCount > 0 && <p className="text-center rounded overflow-hidden shadow-lg p-4 mt-4 bg-white text-black font-semibold text-blue-600">{remainingTime}</p>}
       {hadees && <div className=" max-w-md rounded overflow-hidden shadow-lg mx-auto p-6 mt-10 bg-green-900 text-center text-white">
       {/* <h1 className="font-bold text-xl mb-2">Only for testing purpose for now</h1> */}
+      
+      <div className="flex flex-row justify-between">
+      <a href="/" className="flex">
+      <span aria-hidden="true" className="mr-1">←</span>
+      <p className="text-right text-sm ">Home</p>
+      </a>
       <p className="text-left text-xs">Total Donation: <span className="font-bold">{totalDonations.toFixed(2)} RM</span></p>
+        </div>
       <h1 className="font-bold text-xl mb-2">Hadees</h1>
       <div className="flex flex-row text-center justify-center gap-4 mb-4 rounded overflow-hidden shadow-lg p-4 mt-4 bg-white text-black">
       <p>Arabic Number: {hadees?.hadiths[0].arabicnumber}</p>
