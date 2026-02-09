@@ -3,7 +3,7 @@ import withPWA from "next-pwa";
 
 const withPWAConfig = withPWA({
   dest: "public", // Destination directory for the PWA files
-  disable: false,// Disable PWA in development
+  disable: process.env.NODE_ENV === "development", // Disable PWA in development
   register: true, // Register the service worker automatically
   skipWaiting: true, // Activate service worker immediately
 });

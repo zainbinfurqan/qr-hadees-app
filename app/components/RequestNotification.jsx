@@ -9,6 +9,7 @@ export const  useRequestNotification = () => {
 
   const enableNotifications = async () => {
     try {
+      console.process.env.NODE_ENVlog("Requesting notification permission...");
       const permission = await Notification.requestPermission();
       if (permission !== "granted") return;
 
@@ -36,6 +37,7 @@ export const  useRequestNotification = () => {
 
       setGranted(true);
     } catch (err) {
+      <p>err</p>
       console.error("Error enabling notifications:", err);
     }
   };
