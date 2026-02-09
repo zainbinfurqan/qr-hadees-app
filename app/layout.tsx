@@ -2,6 +2,7 @@ import "./globals.css";
 import { Nunito } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next';
 import ForegroundNotifications from "./components/ForegroundNotifications";
+import { SpeedInsights } from '@vercel/speed-insights/next';
 
 const nunito = Nunito({
   subsets: ['latin'],
@@ -23,6 +24,7 @@ export default function RootLayout({
         {children}
         <ForegroundNotifications />
          <Analytics />
+         <SpeedInsights />
       </body>
     </html>
   );
