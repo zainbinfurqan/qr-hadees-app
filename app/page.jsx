@@ -44,12 +44,16 @@ enableNotifications()
     "https://youtube.com/playlist?list=PLOgzoHFjWOqNVDWPGHwjzrEQ9bgMKSKQ1&si=aLTASKq1MT-YRA9V",
     "https://www.dropbox.com/scl/fi/vbiuh9s8jetdt07831o9x/Reflecting_On_the_Names_of_Allah.pdf?rlkey=rebw2nfrfhce0yeyxrk6z3g9z&st=txo6puou&dl=0",
     "https://youtube.com/shorts/pJ7o-ZKyIZQ?si=XcJ-el3KVHstCBbK",
-    "https://www.dropbox.com/scl/fo/w496a8jr214tw7zt8irt0/AAV9WoAHCP7d-JGE7kY30hA?rlkey=awb8vx0e1kt6uty77ct6h9ys8&st=33sq50we&dl=0"
+    "https://www.dropbox.com/scl/fo/w496a8jr214tw7zt8irt0/AAV9WoAHCP7d-JGE7kY30hA?rlkey=awb8vx0e1kt6uty77ct6h9ys8&st=33sq50we&dl=0",
+    "https://www.dropbox.com/scl/fo/1hvjiu5h9pl0vlc5dtq72/ADl6RaQfqeHUFRZnfFO7t-I?rlkey=4yn1e8lbqchyktxm0d3mxe8oc&st=7w0vvogf&dl=0"
   ]
 
   return (
     <div className="flex py-10 flex-col min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
         <a className="self-end mx-2 top-4 right-4 bg-blue-500 hover:bg-blue-700 text-white text-xs font-semibold py-1 px-2 rounded" href="/another">Show me Hadith</a>
+      <LinkCard url={links[9]}>
+  {"Dua's for Ramadam specialy"}
+</LinkCard>
       <LinkCard url={links[0]}>
   {"Khutbah 6th Feb"}
 </LinkCard>
