@@ -12,6 +12,7 @@ export const  useRequestNotification = () => {
       console.log("Environment:", process.env.NODE_ENV);
       console.log("Requesting notification permission...");
       const permission = await Notification.requestPermission();
+      console.log("permission:", permission);
       if (permission !== "granted") return;
 
       // Register service worker
