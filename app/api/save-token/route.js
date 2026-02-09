@@ -9,6 +9,18 @@ export async function POST(req) {
     const client = await clientPromise;
     const db = client.db("qr-hadith-app");
 
+    // Check if fcmToken already exists
+    const existingToken = await db.collection("fcm-tokens").findOne({
+      fcmToken: body.fcmToken
+    });
+
+    if (existingToken) {
+      return NextResponse.json(
+        { error: "FCM token already registered" },
+        { status: 400 }
+      );
+    }
+
     const result = await db.collection("fcm-tokens").insertOne({
       ...body,
       createdAt: new Date()
