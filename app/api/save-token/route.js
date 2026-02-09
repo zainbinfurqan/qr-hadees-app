@@ -11,7 +11,7 @@ export async function POST(req) {
 
     // Check if fcmToken already exists
     const existingToken = await db.collection("fcm-tokens").findOne({
-      fcmToken: body.fcmToken
+      fcmtoken: body.fcmtoken
     });
 
     if (existingToken) {
