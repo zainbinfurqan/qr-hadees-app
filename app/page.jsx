@@ -36,7 +36,7 @@ enableNotifications()
       window.removeEventListener("click", (e) => log("click", e));
     };
     });
-  }, [granted]);
+  }, []);
   // useEffect(() => {
   //  enableNotifications()
   // }, [granted]);
