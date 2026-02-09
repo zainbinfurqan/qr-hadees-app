@@ -6,20 +6,24 @@ import { useRequestNotification } from "./components/RequestNotification";
 export default function Home() {
   const { enableNotifications, granted } = useRequestNotification();
 
-  // useEffect(() => {
-  //   if (!granted) {
-  //     enableNotifications();
-  //   }
-  // }, [granted, enableNotifications]); 
+   useEffect(() => {
+    function handleFirstInteraction() {
+      enableNotifications();
+      ['click', 'touchstart', 'pointerdown'].forEach(evt =>
+        window.removeEventListener(evt, handleFirstInteraction)
+      );
+    }
 
-  useEffect(() => {
-  function handleFirstClick() {
-    enableNotifications();
-    window.removeEventListener('click', handleFirstClick);
-  }
+    ['click', 'touchstart', 'pointerdown'].forEach(evt =>
+      window.addEventListener(evt, handleFirstInteraction, { passive: true })
+    );
 
-  window.addEventListener('click', handleFirstClick);
-}, []);
+    return () => {
+      ['click', 'touchstart', 'pointerdown'].forEach(evt =>
+        window.removeEventListener(evt, handleFirstInteraction)
+      );
+    };
+  }, [enableNotifications]);
 
   const links = [
     "/https://www.dropbox.com/scl/fi/kfhk0787n9clf2cgk7r9i/Khutbah-6th-Feb.pdf?rlkey=awwxj3hb25gpd8vzqgcvpsg0q&st=n171559a&dl=0",
