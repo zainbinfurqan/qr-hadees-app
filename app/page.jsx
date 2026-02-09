@@ -3,6 +3,7 @@
 import { use, useEffect, useState } from "react";
 import { useRequestNotification } from "./components/RequestNotification";
 import { onMessage } from "firebase/messaging";
+import InstallPWAButton from "./components/InstallPWAButton";
 
 export default function Home() {
   const { enableNotifications, granted } = useRequestNotification()
@@ -50,7 +51,10 @@ enableNotifications()
 
   return (
     <div className="flex py-10 flex-col min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
+        <div className="flex justify-between w-full px-7">
+      <InstallPWAButton/>
         <a className="self-end mx-2 top-4 right-4 bg-blue-500 hover:bg-blue-700 text-white text-xs font-semibold py-1 px-2 rounded" href="/another">Show me Hadith</a>
+        </div>
       <LinkCard url={links[9]}>
   {"Dua's for Ramadam specialy"}
 </LinkCard>
