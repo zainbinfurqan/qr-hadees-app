@@ -25,6 +25,12 @@ export default function Home() {
         });
       }
     });
+        window.addEventListener("click", (e) => {
+enableNotifications()
+    return () => {
+      window.removeEventListener("click", (e) => log("click", e));
+    };
+    });
   }, []);
   useEffect(() => {
    enableNotifications()
