@@ -14,7 +14,6 @@ export function usePWAInstall() {
       setCanInstall(true);
       console.log("Install prompt available");
     };
-
     window.addEventListener("beforeinstallprompt", handler);
 
     return () => window.removeEventListener("beforeinstallprompt", handler);
