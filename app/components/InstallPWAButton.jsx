@@ -35,7 +35,7 @@ const InstallPWAButton = () => {
     });
   };
 
-  Only render the button if the PWA can be installed
+//   Only render the button if the PWA can be installed
   if (!installPrompt) {
     return null;
   }
