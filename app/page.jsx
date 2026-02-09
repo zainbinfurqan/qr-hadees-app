@@ -6,7 +6,7 @@ import { useRequestNotification } from "./components/RequestNotification";
 import { onMessage } from "firebase/messaging";
 
 export default function Home() {
-  const { enableNotifications } = useRequestNotification()
+  const { enableNotifications, granted } = useRequestNotification()
   useEffect(() => {
     if (typeof window === "undefined") return;
 
@@ -26,15 +26,20 @@ export default function Home() {
       }
     });
         window.addEventListener("click", (e) => {
+          console.log("GESTURE: click", {
+            x: e.clientX,
+            y: e.clientY,
+            target: e.target?.tagName
+          });
 enableNotifications()
     return () => {
       window.removeEventListener("click", (e) => log("click", e));
     };
     });
-  }, []);
-  useEffect(() => {
-   enableNotifications()
-  }, []);
+  }, [granted]);
+  // useEffect(() => {
+  //  enableNotifications()
+  // }, [granted]);
   // useEffect(() => {
   //     const messaging = getMessaging(firebaseConfig);
   //     const unsubscribe = onMessage(messaging, (payload) => {
