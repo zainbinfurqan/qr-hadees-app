@@ -1,6 +1,7 @@
 import "./globals.css";
 import { Nunito } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next';
+import ForegroundNotifications from "./components/ForegroundNotifications";
 import { SpeedInsights } from '@vercel/speed-insights/next';
 
 const nunito = Nunito({
@@ -14,12 +15,14 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+
   return (
     <html lang="en" className={nunito.className}>
       <body
         className={nunito.className}
       >
         {children}
+        <ForegroundNotifications />
          <Analytics />
          <SpeedInsights />
       </body>

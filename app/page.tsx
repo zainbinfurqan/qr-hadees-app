@@ -1,11 +1,26 @@
-import { Metadata } from "next";
+'use client';
 
-export const metadata: Metadata = {
-  title: "Learn Hadees",
-  description: "An app to learn random hadees with QR code scanning functionality.",
-};
+import { useEffect } from "react";
+import { useRequestNotification } from "./components/RequestNotification";
 
 export default function Home() {
+  const { enableNotifications, granted } = useRequestNotification();
+
+  // useEffect(() => {
+  //   if (!granted) {
+  //     enableNotifications();
+  //   }
+  // }, [granted, enableNotifications]); 
+
+  useEffect(() => {
+  function handleFirstClick() {
+    enableNotifications();
+    window.removeEventListener('click', handleFirstClick);
+  }
+
+  window.addEventListener('click', handleFirstClick);
+}, []);
+
   const links = [
     "/https://www.dropbox.com/scl/fi/kfhk0787n9clf2cgk7r9i/Khutbah-6th-Feb.pdf?rlkey=awwxj3hb25gpd8vzqgcvpsg0q&st=n171559a&dl=0",
     "https://www.dropbox.com/scl/fi/r8oo2ks35thmth3bs2ro5/Khutbah-30th-Jan.pdf?rlkey=zn2qiu73vjgxm88sgdc3ghkdq&st=5cvr7vzx&dl=0",
@@ -17,6 +32,7 @@ export default function Home() {
     "https://youtube.com/shorts/pJ7o-ZKyIZQ?si=XcJ-el3KVHstCBbK",
     "https://www.dropbox.com/scl/fo/w496a8jr214tw7zt8irt0/AAV9WoAHCP7d-JGE7kY30hA?rlkey=awb8vx0e1kt6uty77ct6h9ys8&st=33sq50we&dl=0"
   ]
+
   return (
     <div className="flex py-10 flex-col min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
         <a className="self-end mx-2 top-4 right-4 bg-blue-500 hover:bg-blue-700 text-white text-xs font-semibold py-1 px-2 rounded" href="/qr">Show me QR</a>
@@ -86,7 +102,6 @@ const LinkCard = ({ url, children } : { url: string, children: React.ReactNode }
     type === "facebook" ? "bg-blue-600" :
     type === "app-apple" ? "bg-black" :
     type === "app-play" ? "bg-green-600" : "bg-transparent";
-
   return (
     <a
       href={normalizedUrl}
