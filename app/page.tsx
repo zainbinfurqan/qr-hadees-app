@@ -1,46 +1,7 @@
 'use client';
 
-import { useEffect } from "react";
-import { useRequestNotification } from "./components/RequestNotification";
-
 export default function Home() {
-  const { enableNotifications, granted } = useRequestNotification();
-useEffect(() => {
-    import("eruda").then(e => e.default.init());
-  }, []);
-   useEffect(() => {
-    const log = (type:any, e:any) => {
-      console.log("GESTURE:", type, {
-        x: e.clientX,
-        y: e.clientY,
-        target: e.target?.tagName
-      });
-    };
-
-    // Click / Tap
-    window.addEventListener("click", (e) => {
-enableNotifications()
-
-    });
-
-    // Touch start
-    window.addEventListener("touchstart", (e) => {
-      const t = e.touches[0];
-      console.log("GESTURE: touchstart", t.clientX, t.clientY);
-    });
-
   
-    // Touch end
-    window.addEventListener("touchend", () => {
-      console.log("GESTURE: touchend");
-    });
-
-    return () => {
-      window.removeEventListener("click", (e) => log("click", e));
-    };
-
-  }, [granted]);
-
   const links = [
     "/https://www.dropbox.com/scl/fi/kfhk0787n9clf2cgk7r9i/Khutbah-6th-Feb.pdf?rlkey=awwxj3hb25gpd8vzqgcvpsg0q&st=n171559a&dl=0",
     "https://www.dropbox.com/scl/fi/r8oo2ks35thmth3bs2ro5/Khutbah-30th-Jan.pdf?rlkey=zn2qiu73vjgxm88sgdc3ghkdq&st=5cvr7vzx&dl=0",
@@ -55,7 +16,7 @@ enableNotifications()
 
   return (
     <div className="flex py-10 flex-col min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-        <a className="self-end mx-2 top-4 right-4 bg-blue-500 hover:bg-blue-700 text-white text-xs font-semibold py-1 px-2 rounded" href="/qr">Show me QR</a>
+        <a className="self-end mx-2 top-4 right-4 bg-blue-500 hover:bg-blue-700 text-white text-xs font-semibold py-1 px-2 rounded" href="/another">Show me Hadith</a>
       <LinkCard url={links[0]}>
   {"Khutbah 6th Feb"}
 </LinkCard>
