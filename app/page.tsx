@@ -5,7 +5,9 @@ import { useRequestNotification } from "./components/RequestNotification";
 
 export default function Home() {
   const { enableNotifications, granted } = useRequestNotification();
-
+useEffect(() => {
+    import("eruda").then(e => e.default.init());
+  }, []);
    useEffect(() => {
     const log = (type:any, e:any) => {
       console.log("GESTURE:", type, {
