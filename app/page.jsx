@@ -1,7 +1,40 @@
 'use client';
 
+import { use, useEffect, useState } from "react";
+import { useRequestNotification } from "./components/RequestNotification";
+import { onMessage } from "firebase/messaging";
+
 export default function Home() {
-  
+  const { enableNotifications, granted } = useRequestNotification()
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+
+    // Foreground messages
+    onMessage((payload) => {
+      console.log("Foreground message:", payload);
+      if (Notification.permission === "granted") {
+        new Notification(payload.notification?.title || "Notification", {
+          body: payload.notification?.body || "",
+          icon: "/app-icon.jpg",
+        });
+      }
+    });
+        window.addEventListener("click", (e) => {
+          console.log("GESTURE: click", {
+            x: e.clientX,
+            y: e.clientY,
+            target: e.target?.tagName
+          });
+          if(granted !== 'granted'){
+enableNotifications()
+          }
+    return () => {
+      window.removeEventListener("click", (e) => log("click", e));
+    };
+    });
+  }, [granted]);
+ 
+
   const links = [
     "/https://www.dropbox.com/scl/fi/kfhk0787n9clf2cgk7r9i/Khutbah-6th-Feb.pdf?rlkey=awwxj3hb25gpd8vzqgcvpsg0q&st=n171559a&dl=0",
     "https://www.dropbox.com/scl/fi/r8oo2ks35thmth3bs2ro5/Khutbah-30th-Jan.pdf?rlkey=zn2qiu73vjgxm88sgdc3ghkdq&st=5cvr7vzx&dl=0",
@@ -48,7 +81,7 @@ export default function Home() {
   );
 }
 
-function getLinkType(url:any) {
+function getLinkType(url) {
   if (!url) return "other";
   const lower = url.toLowerCase();
   if (lower.includes("youtube.com") || lower.includes("youtu.be")) return "youtube";
@@ -67,7 +100,7 @@ function getLinkType(url:any) {
   return "other";
 }
 
-const LinkCard = ({ url, children } : { url: string, children: React.ReactNode }) => {
+const LinkCard = ({ url, children }) => {
   const type = getLinkType(url);
     const normalizedUrl = typeof url === "string" ? url.replace(/^\/+(?=https?:\/\/)/i, "") : url;
 
