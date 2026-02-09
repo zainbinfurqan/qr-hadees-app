@@ -2,13 +2,13 @@ importScripts('https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js
 importScripts('https://www.gstatic.com/firebasejs/10.12.0/firebase-messaging-compat.js');
 
 firebase.initializeApp({
-   apiKey: "AIzaSyCc388LBUATWmQTmSp1n9_AeMnPIbA-_YY",
-  authDomain: "qr-hadees-app.firebaseapp.com",
-  projectId: "qr-hadees-app",
-  storageBucket: "qr-hadees-app.firebasestorage.app",
-  messagingSenderId: "369752517986",
-  appId: "1:369752517986:web:66e91a72aa33a42495903b",
-  measurementId: "G-KBXMZL34JM"
+   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
+  authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
+  projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
+  storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_SENDER_ID,
+  appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
+  measurementId: rocess.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID
 });
 
 const messaging = firebase.messaging();
