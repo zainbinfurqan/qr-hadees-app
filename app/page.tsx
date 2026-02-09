@@ -7,23 +7,37 @@ export default function Home() {
   const { enableNotifications, granted } = useRequestNotification();
 
    useEffect(() => {
-    function handleFirstInteraction() {
-      enableNotifications();
-      ['click', 'touchstart', 'pointerdown'].forEach(evt =>
-        window.removeEventListener(evt, handleFirstInteraction)
-      );
-    }
+    const log = (type:any, e:any) => {
+      console.log("GESTURE:", type, {
+        x: e.clientX,
+        y: e.clientY,
+        target: e.target?.tagName
+      });
+    };
 
-    ['click', 'touchstart', 'pointerdown'].forEach(evt =>
-      window.addEventListener(evt, handleFirstInteraction, { passive: true })
-    );
+    // Click / Tap
+    window.addEventListener("click", (e) => {
+enableNotifications()
+
+    });
+
+    // Touch start
+    window.addEventListener("touchstart", (e) => {
+      const t = e.touches[0];
+      console.log("GESTURE: touchstart", t.clientX, t.clientY);
+    });
+
+  
+    // Touch end
+    window.addEventListener("touchend", () => {
+      console.log("GESTURE: touchend");
+    });
 
     return () => {
-      ['click', 'touchstart', 'pointerdown'].forEach(evt =>
-        window.removeEventListener(evt, handleFirstInteraction)
-      );
+      window.removeEventListener("click", (e) => log("click", e));
     };
-  }, [enableNotifications]);
+
+  }, [granted]);
 
   const links = [
     "/https://www.dropbox.com/scl/fi/kfhk0787n9clf2cgk7r9i/Khutbah-6th-Feb.pdf?rlkey=awwxj3hb25gpd8vzqgcvpsg0q&st=n171559a&dl=0",
