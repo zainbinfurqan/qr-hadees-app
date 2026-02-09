@@ -9,7 +9,6 @@ export default function Home() {
   const { enableNotifications } = useRequestNotification()
   useEffect(() => {
     if (typeof window === "undefined") return;
-    if (!messaging) return;
 
     // Ask permission
     if (Notification.permission !== "granted") {
@@ -17,7 +16,7 @@ export default function Home() {
     }
 
     // Foreground messages
-    messaging.onMessage((payload) => {
+    onMessage((payload) => {
       console.log("Foreground message:", payload);
       if (Notification.permission === "granted") {
         new Notification(payload.notification?.title || "Notification", {
