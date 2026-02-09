@@ -31,7 +31,9 @@ export default function Home() {
             y: e.clientY,
             target: e.target?.tagName
           });
+          if(granted == 'granted'){
 enableNotifications()
+          }
     return () => {
       window.removeEventListener("click", (e) => log("click", e));
     };
