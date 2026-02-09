@@ -1,12 +1,43 @@
 'use client';
 
-import { useEffect, useState } from "react";
+import { use, useEffect, useState } from "react";
 import { useRequestNotification } from "./components/RequestNotification";
   import { subscribeUser, unsubscribeUser, sendNotification } from './actions';
+import { onMessage } from "firebase/messaging";
 
 export default function Home() {
+  const { enableNotifications } = useRequestNotification()
 
- 
+  useEffect(() => {
+     // Foreground message handler
+   onMessage(payload => {
+      console.log('Foreground message received: ', payload);
+
+      if (Notification.permission === 'granted') {
+        new Notification(payload.notification.title, {
+          body: payload.notification.body,
+          icon: '/app-icon.jpg'
+        });
+      }
+    }); 
+   
+  }, []);
+  useEffect(() => {
+   enableNotifications()
+  }, []);
+  // useEffect(() => {
+  //     const messaging = getMessaging(firebaseConfig);
+  //     const unsubscribe = onMessage(messaging, (payload) => {
+  //       console.log('Message received: ', payload);
+  //       if (Notification.permission === 'granted') {
+  //       new Notification(payload.notification.title, {
+  //         body: payload.notification.body,
+  //         icon: '/app-icon.jpg'
+  //       });
+  //     }
+  //     });
+  //     return () => unsubscribe(); // Cleanup subscription
+  // }, []);
 // function urlBase64ToUint8Array(base64String: string) {
 //   const padding = '='.repeat((4 - (base64String.length % 4)) % 4)
 //   const base64 = (base64String + padding).replace(/-/g, '+').replace(/_/g, '/')
@@ -157,7 +188,7 @@ export default function Home() {
   );
 }
 
-function getLinkType(url:any) {
+function getLinkType(url) {
   if (!url) return "other";
   const lower = url.toLowerCase();
   if (lower.includes("youtube.com") || lower.includes("youtu.be")) return "youtube";
@@ -176,7 +207,7 @@ function getLinkType(url:any) {
   return "other";
 }
 
-const LinkCard = ({ url, children } : { url: string, children: React.ReactNode }) => {
+const LinkCard = ({ url, children }) => {
   const type = getLinkType(url);
     const normalizedUrl = typeof url === "string" ? url.replace(/^\/+(?=https?:\/\/)/i, "") : url;
 
