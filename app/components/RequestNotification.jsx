@@ -9,7 +9,8 @@ export const  useRequestNotification = () => {
 
   const enableNotifications = async () => {
     try {
-      console.process.env.NODE_ENVlog("Requesting notification permission...");
+      console.log("Environment:", process.env.NODE_ENV);
+      console.log("Requesting notification permission...");
       const permission = await Notification.requestPermission();
       if (permission !== "granted") return;
 
