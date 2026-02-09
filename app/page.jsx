@@ -7,20 +7,25 @@ import { onMessage } from "firebase/messaging";
 
 export default function Home() {
   const { enableNotifications } = useRequestNotification()
-
   useEffect(() => {
-     // Foreground message handler
-   onMessage(payload => {
-      console.log('Foreground message received: ', payload);
+    if (typeof window === "undefined") return;
+    if (!messaging) return;
 
-      if (Notification.permission === 'granted') {
-        new Notification(payload.notification.title, {
-          body: payload.notification.body,
-          icon: '/app-icon.jpg'
+    // Ask permission
+    if (Notification.permission !== "granted") {
+      Notification.requestPermission();
+    }
+
+    // Foreground messages
+    messaging.onMessage((payload) => {
+      console.log("Foreground message:", payload);
+      if (Notification.permission === "granted") {
+        new Notification(payload.notification?.title || "Notification", {
+          body: payload.notification?.body || "",
+          icon: "/app-icon.jpg",
         });
       }
-    }); 
-   
+    });
   }, []);
   useEffect(() => {
    enableNotifications()
