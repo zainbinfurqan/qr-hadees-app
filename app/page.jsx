@@ -11,9 +11,9 @@ export default function Home() {
     if (typeof window === "undefined") return;
 
     // Ask permission
-    if (Notification.permission !== "granted") {
-      Notification.requestPermission();
-    }
+    // if (Notification.permission !== "granted") {
+    //   Notification.requestPermission();
+    // }
 
     // Foreground messages
     onMessage((payload) => {
