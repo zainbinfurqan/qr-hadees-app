@@ -16,15 +16,15 @@ export default function Home() {
     // }
 
     // Foreground messages
-    // onMessage((payload) => {
-    //   console.log("Foreground message:", payload);
-    //   if (Notification.permission === "granted") {
-    //     new Notification(payload.notification?.title || "Notification", {
-    //       body: payload.notification?.body || "",
-    //       icon: "/app-icon.jpg",
-    //     });
-    //   }
-    // });
+    onMessage((payload) => {
+      console.log("Foreground message:", payload);
+      if (Notification.permission === "granted") {
+        new Notification(payload.notification?.title || "Notification", {
+          body: payload.notification?.body || "",
+          icon: "/app-icon.jpg",
+        });
+      }
+    });
         window.addEventListener("click", (e) => {
           console.log("GESTURE: click", {
             x: e.clientX,
