@@ -3,10 +3,11 @@
 import { use, useEffect, useState } from "react";
 import { useRequestNotification } from "./components/RequestNotification";
 import { onMessage } from "firebase/messaging";
-import InstallPWAButton from "./components/InstallPWAButton";
+import  { usePWAInstall } from "./components/InstallPWAButton";
 
 export default function Home() {
   const { enableNotifications, granted } = useRequestNotification()
+  const { canInstall, install } = usePWAInstall()
   useEffect(() => {
     if (typeof window === "undefined") return;
 
@@ -48,6 +49,17 @@ enableNotifications()
     "https://www.dropbox.com/scl/fo/w496a8jr214tw7zt8irt0/AAV9WoAHCP7d-JGE7kY30hA?rlkey=awb8vx0e1kt6uty77ct6h9ys8&st=33sq50we&dl=0",
     "https://www.dropbox.com/scl/fo/1hvjiu5h9pl0vlc5dtq72/ADl6RaQfqeHUFRZnfFO7t-I?rlkey=4yn1e8lbqchyktxm0d3mxe8oc&st=7w0vvogf&dl=0"
   ]
+
+  const InstallPWAButton = () => {
+    console.log("canInstall:", canInstall);
+    if (!canInstall) return null;
+
+  return (
+    <button onClick={install}>
+      📲 Install App
+    </button>
+  );
+}
 
   return (
     <div className="flex py-10 flex-col min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">

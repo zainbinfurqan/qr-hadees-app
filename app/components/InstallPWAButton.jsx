@@ -1,50 +1,33 @@
-import React, { useEffect, useState } from 'react';
+'use client'
+import { useEffect, useState } from "react";
 
-const InstallPWAButton = () => {
-  const [installPrompt, setInstallPrompt] = useState(null);
+export function usePWAInstall() {
+  const [deferredPrompt, setDeferredPrompt] = useState(null);
+  const [canInstall, setCanInstall] = useState(false);
 
   useEffect(() => {
-    const handleBeforeInstallPrompt = (e) => {
-      // Prevent the default browser prompt from appearing immediately
+    if (typeof window === "undefined") return;
+
+    const handler = (e) => {
       e.preventDefault();
-      // Store the event so it can be triggered later
-      setInstallPrompt(e);
+      setDeferredPrompt(e);
+      setCanInstall(true);
+      console.log("Install prompt available");
     };
 
-    // Listen for the event when the component mounts
-    window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
+    window.addEventListener("beforeinstallprompt", handler);
 
-    return () => {
-      // Clean up the event listener on unmount
-      window.removeEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
-    };
+    return () => window.removeEventListener("beforeinstallprompt", handler);
   }, []);
 
-  const handleInstallClick = () => {
-    if (!installPrompt) {
-      return;
-    }
-    // Show the browser's native installation prompt
-    installPrompt.prompt();
+  const install = async () => {
+    if (!deferredPrompt) return;
 
-    // Optional: Log the user's choice
-    installPrompt.userChoice.then((choiceResult) => {
-      console.log('User choice:', choiceResult.outcome);
-      // Clear the prompt event once used
-      setInstallPrompt(null);
-    });
+    deferredPrompt.prompt();
+    await deferredPrompt.userChoice;
+    setDeferredPrompt(null);
+    setCanInstall(false);
   };
 
-//   Only render the button if the PWA can be installed
-  if (!installPrompt) {
-    return null;
-  }
-
-  return (
-    <button onClick={handleInstallClick} className=" mx-2 bg-blue-500 hover:bg-blue-700 text-white text-xs font-semibold py-1 px-2 rounded"   >
-      Add to Home Screen
-    </button>
-  );
-};
-
-export default InstallPWAButton;
+  return { canInstall, install };
+}
