@@ -42,7 +42,8 @@ enableNotifications()
     "https://www.dropbox.com/scl/fi/vbiuh9s8jetdt07831o9x/Reflecting_On_the_Names_of_Allah.pdf?rlkey=rebw2nfrfhce0yeyxrk6z3g9z&st=txo6puou&dl=0",
     "https://youtube.com/shorts/pJ7o-ZKyIZQ?si=XcJ-el3KVHstCBbK",
     "https://www.dropbox.com/scl/fo/w496a8jr214tw7zt8irt0/AAV9WoAHCP7d-JGE7kY30hA?rlkey=awb8vx0e1kt6uty77ct6h9ys8&st=33sq50we&dl=0",
-    "https://www.dropbox.com/scl/fo/1hvjiu5h9pl0vlc5dtq72/ADl6RaQfqeHUFRZnfFO7t-I?rlkey=4yn1e8lbqchyktxm0d3mxe8oc&st=7w0vvogf&dl=0"
+    "https://www.dropbox.com/scl/fo/1hvjiu5h9pl0vlc5dtq72/ADl6RaQfqeHUFRZnfFO7t-I?rlkey=4yn1e8lbqchyktxm0d3mxe8oc&st=7w0vvogf&dl=0",
+    "https://www.youtube.com/watch?v=ZcwdOdV05J0"
   ]
 
   const InstallPWAButton = () => {
@@ -57,7 +58,7 @@ enableNotifications()
 
   return (
     <div className="flex py-10 flex-col min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-        <div className="flex justify-between w-full px-7">
+        <div className="flex justify-evenly w-full px-7">
       {/* <InstallPWAButton/> */}
         <a className="self-end mx-2 top-4 right-4 bg-blue-500 hover:bg-blue-700 text-white  text-md py-1 px-2 rounded" href="/another">Random Hadith</a>
         <a className="self-end mx-2 top-4 right-4 bg-blue-500 hover:bg-blue-700 text-white text-md py-1 px-2 rounded" href="/ramadan">Ramadan/Fasting Hadith</a>
@@ -65,11 +66,8 @@ enableNotifications()
       <LinkCard url={links[9]}>
   {"Dua's for Ramadam specialy"}
 </LinkCard>
-      <LinkCard url={links[0]}>
-  {"Khutbah 6th Feb"}
-</LinkCard>
-<LinkCard url={links[1]}>
-  {"Khutbah 30th Jan"}
+     <LinkCard url={links[8]}>
+  {"Qoutes for daily motivation and reflection"}
 </LinkCard>
 <LinkCard url={links[2]}>
   {"Khutbah’s you could listen to pre-Ramadan"}
@@ -89,8 +87,14 @@ enableNotifications()
 <LinkCard url={links[7]}>
   {"How to prepare for Ramadan | Moeen Mahmood | Short"}
 </LinkCard>
-<LinkCard url={links[8]}>
-  {"Qoutes for daily motivation and reflection"}
+<LinkCard url={links[10]}>
+  {"Life Is Full of Hardships"}
+</LinkCard>
+ <LinkCard url={links[0]}>
+  {"Khutbah 6th Feb"}
+</LinkCard>
+<LinkCard url={links[1]}>
+  {"Khutbah 30th Jan"}
 </LinkCard>
     </div>
   );
@@ -121,7 +125,7 @@ const LinkCard = ({ url, children }) => {
 
   const badgeText =
     type === "youtube" ? "YouTube" :
-    type === "pdf" ? "PDF" :
+    type === "pdf" ? "PDF" : 
     type === "facebook" ? "Facebook" :
     type === "app-apple" ? "App Store" :
     type === "app-play" ? "Google Play" : null;
@@ -143,6 +147,11 @@ const LinkCard = ({ url, children }) => {
         {badgeText && (
           <span className={` absolute top-2 right-2 text-xs px-2 py-1 rounded text-white ${badgeClass}`}>
             {badgeText} {(type === "youtube" || type === "facebook" || type === "app-apple" || type === "app-play") ? "▶" : ""}
+          </span>
+        )}
+        {badgeText == null && (
+          <span className={` absolute top-2 right-2 text-xs px-2 py-1 rounded text-white bg-black`}>
+            Images
           </span>
         )}
         <div className="mt-5">{children}</div>
