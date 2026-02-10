@@ -63,8 +63,8 @@ enableNotifications()
     <div className="flex py-10 flex-col min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
         <div className="flex justify-evenly w-full px-7">
       {/* <InstallPWAButton/> */}
-        <a className="self-end mx-2 top-4 right-4 bg-blue-500 hover:bg-blue-700 text-white  text-md py-1 px-2 rounded" href="/another">Random Hadith</a>
-        <a className="self-end mx-2 top-4 right-4 bg-blue-500 hover:bg-blue-700 text-white text-md py-1 px-2 rounded" href="/ramadan">Ramadan/Fasting Hadith</a>
+        <a className="self-end mx-2 top-4 right-4 bg-blue-500 hover:bg-blue-700 text-white text-sm   py-1 px-2 rounded" href="/another">Random Hadith</a>
+        <a className="self-end mx-2 top-4 right-4 bg-blue-500 hover:bg-blue-700 text-white text-sm py-1 px-2 rounded" href="/ramadan">Ramadan/Fasting Hadith</a>
         </div>
       <LinkCard url={links[9]}>
   {"Dua's for Ramadam specialy"}
