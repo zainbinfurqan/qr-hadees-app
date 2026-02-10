@@ -1,5 +1,7 @@
 'use client'
-import { useEffect, useState } from "react"
+import { useEffect, useState , useRef} from "react"
+import * as htmlToImage from 'html-to-image';
+import { jsPDF } from "jspdf";
 
 const ramadan_hadees = {
     "eng-abudawud":[[1371, 1400], [2313, 2476]],
@@ -88,6 +90,46 @@ useEffect(() => {
     useEffect(() => {
          fetchHadees()
     }, [])
+
+// --text to image //
+const ref = useRef();
+
+
+  const shareImage = async () => {
+    const dataUrl = await htmlToImage.toPng(ref.current);
+
+    const blob = await (await fetch(dataUrl)).blob();
+    const file = new File([blob], "text-image.png", { type: "image/png" });
+
+    if (navigator.share) {
+      await navigator.share({
+        title: "Shared Text",
+        files: [file],
+      });
+    } else {
+      alert("Share not supported on this browser");
+    }
+  };
+
+//   text to PDF //
+const sharePDF = async () => {
+    const doc = new jsPDF();
+
+    doc.text("This is my text to convert into PDF", 10, 20);
+
+    const blob = doc.output("blob");
+    const file = new File([blob], "text.pdf", { type: "application/pdf" });
+
+    if (navigator.share) {
+      await navigator.share({
+        files: [file],
+        title: "PDF File"
+      });
+    } else {
+      alert("Share not supported");
+    }
+  };
+
     return (
         hadees && <div className=" max-w-md rounded overflow-hidden shadow-lg mx-auto p-6 mt-10 bg-green-900 text-center text-white">
             <div className="flex flex-row justify-between">
@@ -101,6 +143,12 @@ useEffect(() => {
       {hadees?.hadiths && hadees?.hadiths.length >0 && <p>Arabic Number: {hadees?.hadiths[0].arabicnumber}</p>}
       {hadees?.hadiths && hadees?.hadiths.length >0 && <p>Hadith Number: {hadees?.hadiths[0].hadithnumber}</p>}
       </div>
+      <div>
+        <p>Share</p>
+        <p onClick={shareImage}>Image</p>
+        <p onClick={sharePDF}>pdf</p>
+      </div>
+      {<div ref={ref}>
       {hadees?.hadiths && hadees?.hadiths.length >0 && <a href={linkToHadith} target="_blank" rel="noopener noreferrer" className="block">
         <p className="rounded overflow-hidden shadow-lg p-4 mt-4 bg-white text-blue-600 hover:bg-blue-50 hover:shadow-xl hover:scale-105 transition-all duration-200 cursor-pointer font-semibold" >
           {hadees?.hadiths[0].text}
@@ -116,6 +164,7 @@ useEffect(() => {
         </div>
         </a>
       }
+      </div>}
       {hadees?.hadiths && hadees?.hadiths.length >0 && hadees?.hadiths[0].grades?.map((grade, index) => (
         <div key={index}  className="rounded overflow-hidden shadow-lg p-4 mt-4 bg-white text-black">
           <p>
