@@ -112,6 +112,7 @@ enableNotifications()
 <LinkCard url={links[1]}>
   {"Khutbah 30th Jan"}
 </LinkCard>
+{console.log("isPWA", isPWA)}
 {!isPWA && <HalfModalExample>
   <>
     <div className="py-3">
