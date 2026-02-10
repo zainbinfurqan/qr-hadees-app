@@ -4,6 +4,9 @@ import { use, useEffect, useState } from "react";
 import { useRequestNotification } from "./components/RequestNotification";
 import { onMessage } from "firebase/messaging";
 import  { usePWAInstall } from "./components/InstallPWAButton";
+import HalfModalExample from "./components/BotttomModel";
+import { Share, X,  } from "lucide-react";
+import Image from "next/image";
 
 export default function Home() {
   const { enableNotifications, granted } = useRequestNotification()
@@ -96,6 +99,39 @@ enableNotifications()
 <LinkCard url={links[1]}>
   {"Khutbah 30th Jan"}
 </LinkCard>
+<HalfModalExample>
+  <>
+    <div className="py-3">
+      <p className="text-lg text-center">Install the App</p>
+    </div>
+  <div className="flex items-center mb-2">
+  
+  <div className="flex-shrink-0 w-4 h-4 text-xs bg-green-800 text-white font-bold rounded flex items-center justify-center mr-1">1
+  </div>
+              <p className="text-gray-700 text-sm flex items-center">Open this page in Safari</p>
+  </div>
+
+ <div className="flex items-center mb-2">
+  <div className="flex-shrink-0 w-4 h-4 text-xs bg-green-800 text-white font-bold rounded flex items-center justify-center mr-1">2
+  </div>
+              <p className="text-gray-700 text-sm flex items-center">Tap the <Share style={{
+                margin: '0px 4px'
+              }} size={15}/> button</p>
+  </div>
+
+   <div className="flex items-center mb-2">
+  <div className="flex-shrink-0 w-4 h-4 text-xs bg-green-800 text-white font-bold rounded flex items-center justify-center mr-1">3
+  </div>
+              <p className="text-gray-700 text-sm flex items-center">Select <span className="mx-1 bg-gray-100 px-1 rounded"> "Add to Home Screen"</span></p>
+  </div>
+
+   <div className="flex items-center mb-2">
+  <div className="flex-shrink-0 w-4 h-4 text-xs bg-green-800 text-white font-bold rounded flex items-center justify-center mr-1">4
+  </div>
+              <p className="text-gray-700 text-sm flex items-center">Look for the <Image alt='' src="/app-icon.jpg" width={20} height={20} className="mx-1"/> on your home screen</p>
+  </div>
+  </>
+</HalfModalExample>
     </div>
   );
 }
