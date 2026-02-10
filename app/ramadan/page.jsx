@@ -2,6 +2,7 @@
 import { useEffect, useState , useRef} from "react"
 import * as htmlToImage from 'html-to-image';
 import { jsPDF } from "jspdf";
+import html2canvas from "html2canvas";
 
 const ramadan_hadees = {
     "eng-abudawud":[[1371, 1400], [2313, 2476]],
