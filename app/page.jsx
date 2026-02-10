@@ -11,7 +11,7 @@ import Image from "next/image";
 export default function Home() {
   const { enableNotifications, granted } = useRequestNotification()
   const { canInstall, install } = usePWAInstall()
-  const [isPWA, setIsPWA] = useState(false);
+  const [isPWA, setIsPWA] = useState(true);
   useEffect(() => {
     if (typeof window === "undefined") return;
 
