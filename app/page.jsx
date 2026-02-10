@@ -112,7 +112,7 @@ enableNotifications()
 <LinkCard url={links[1]}>
   {"Khutbah 30th Jan"}
 </LinkCard>
-{isPWA && <HalfModalExample>
+{!isPWA && <HalfModalExample>
   <>
     <div className="py-3">
       <p className="text-lg text-center">Install the App</p>
