@@ -122,7 +122,7 @@ enableNotifications()
    <div className="flex items-center mb-2">
   <div className="flex-shrink-0 w-4 h-4 text-xs bg-green-800 text-white font-bold rounded flex items-center justify-center mr-1">3
   </div>
-              <p className="text-gray-700 text-sm flex items-center">Select <span className="mx-1 bg-gray-100 px-1 rounded"> "Add to Home Screen"</span></p>
+              <p className="text-gray-700 text-sm flex items-center">Select <span className="mx-1 bg-gray-100 px-1 rounded"> Add to Home Screen</span></p>
   </div>
 
    <div className="flex items-center mb-2">
