@@ -198,7 +198,7 @@ const pageHeightPx = (pageHeight - margin * 2) * pxPerMm;
   };
 
     return (
-        hadees && <div className=" max-w-md rounded overflow-hidden shadow-lg mx-auto p-6 mt-10 bg-green-900 text-center text-white">
+        hadees && <div className=" max-w-md rounded overflow-hidden shadow-lg mx-auto p-6 mt-2 bg-green-900 text-center text-white">
             <div className="flex flex-row justify-between">
       <a href="/" className="flex">
       <span aria-hidden="true" className="mr-1">←</span>
