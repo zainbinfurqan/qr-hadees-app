@@ -132,22 +132,42 @@ const sharePDF = async () => {
     const pdf = new jsPDF("p", "mm", "a3");
 
     const pageWidth = pdf.internal.pageSize.getWidth();
+  const pageHeight = pdf.internal.pageSize.getHeight();
 
     const margin = 10; // ✅ margin mm
+    let position = margin;
 
     const imgWidth = pageWidth - margin * 2;
     const imgHeight = canvas.height * imgWidth / canvas.width;
+    let heightLeft = imgHeight;
 
     pdf.addImage(
       imgData,
       "PNG",
       margin,
+      position,
+      imgWidth,
+      imgHeight
+    );
+     heightLeft -= (pageHeight - margin * 2)
+
+    while (heightLeft > 0) {
+        pdf.addPage();
+
+    position = margin - (imgHeight - heightLeft);
+
+    pdf.addImage(
+      imgData,
+      "PNG",
       margin,
+      position,
       imgWidth,
       imgHeight
     );
 
-    // download fallback
+    heightLeft -= (pageHeight - margin * 2);
+  }
+     // download fallback
     pdf.save("Hadees.pdf");
 
     // share option
