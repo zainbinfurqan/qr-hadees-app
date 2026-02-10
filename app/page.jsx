@@ -69,7 +69,8 @@ enableNotifications()
       setIsPWA(true);
     } else {
       console.log("Browser Mode");
-    }setIsPWA(false);
+      setIsPWA(false);
+    }
   }, []);
 
   return (

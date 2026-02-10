@@ -4,7 +4,6 @@ import { Analytics } from '@vercel/analytics/next';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import { InstallPrompt } from "./components/SubscribePushNotification";
 import { Metadata } from "next";
-import Head from "next/head";
 
 const nunito = Nunito({
   subsets: ['latin'],
@@ -35,9 +34,9 @@ export default function RootLayout({
 
   return (
     <html lang="en" className={nunito.className}>
-      <Head>
+      <head>
         <link rel="apple-touch-startup-image" href="/splash/iphone.jpg" />
-      </Head>
+      </head>
       <body
         className={nunito.className}
       >
