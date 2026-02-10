@@ -12,8 +12,8 @@ const nunito = Nunito({
 })
 
 export const metadata: Metadata = {
-  title: "Your app name",
-  description: "Your app description",
+  title: "Hadess App",
+  description: "Learn a new hadith everyday. Share authentic hadiths with your friends and family.",
   generator: "Next.js",
   manifest: "/manifest.json",
   keywords: ["nextjs", "next14", "pwa", "next-pwa"],

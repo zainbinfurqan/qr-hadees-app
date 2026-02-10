@@ -37,6 +37,19 @@ useEffect(() => {
     const randBetween = (min, max) =>
   Math.floor(Math.random() * (max - min + 1)) + min;
 
+    useEffect(() => {
+        document.title = 'Ramadan Hadees';
+    const descTag = document.querySelector('meta[name="description"]');
+    if (descTag) {
+      descTag.setAttribute('content', 'Ramadan Hadees App - Read random authentic hadees during Ramadan with Urdu translation.');
+    } else {
+      const meta = document.createElement('meta');
+      meta.name = 'description';
+      meta.content = 'Ramadan Hadees App - Read random authentic hadees during Ramadan with Urdu translation.';
+      document.head.appendChild(meta);
+    }
+    }, []);
+
     function getRandomRamadanHadeesRef() {
   // step 1 — random edition
   const edition = editions[Math.floor(Math.random() * editions.length)];
