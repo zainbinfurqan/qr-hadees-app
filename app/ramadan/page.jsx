@@ -136,36 +136,49 @@ const sharePDF = async () => {
 
     const margin = 10; // ✅ margin mm
     let position = margin;
-
     const imgWidth = pageWidth - margin * 2;
+     const pxPerMm = canvas.width / imgWidth;
+
     const imgHeight = canvas.height * imgWidth / canvas.width;
-    let heightLeft = imgHeight;
+const pageHeightPx = (pageHeight - margin * 2) * pxPerMm;
+   
+  let y = 0;
+
+  while (y < canvas.height) {
+    const pageCanvas = document.createElement("canvas");
+    pageCanvas.width = canvas.width;
+    pageCanvas.height = Math.min(pageHeightPx, canvas.height - y);
+
+    const ctx = pageCanvas.getContext("2d");
+
+    ctx.drawImage(
+      canvas,
+      0,
+      y,
+      canvas.width,
+      pageCanvas.height,
+      0,
+      0,
+      canvas.width,
+      pageCanvas.height
+    );
+
+    const imgData = pageCanvas.toDataURL("image/png");
+
+    if (y > 0) pdf.addPage();
+
+    const imgHeight = pageCanvas.height / pxPerMm;
 
     pdf.addImage(
       imgData,
       "PNG",
       margin,
-      position,
-      imgWidth,
-      imgHeight
-    );
-     heightLeft -= (pageHeight - margin * 2)
-
-    while (heightLeft > 0) {
-        pdf.addPage();
-
-    position = margin - (imgHeight - heightLeft);
-
-    pdf.addImage(
-      imgData,
-      "PNG",
       margin,
-      position,
       imgWidth,
       imgHeight
     );
 
-    heightLeft -= (pageHeight - margin * 2);
+    y += pageHeightPx;
   }
      // download fallback
     pdf.save("Hadees.pdf");
