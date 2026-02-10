@@ -8,11 +8,9 @@ export default function ForegroundNotifications() {
     if (!messaging) return;
 
     const unsubscribe = onMessage(messaging, (payload) => {
-      console.log("Foreground message received:", payload);
 
       // Only show system notification if permission granted
       if (Notification.permission === "granted") {
-      console.log("granted", payload);
         const title = payload.notification?.title
         const options = {
           body: payload.notification?.body || "",

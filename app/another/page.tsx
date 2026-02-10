@@ -174,10 +174,6 @@ useEffect(() => {
         <div className="text-sm flex flex-col rounded overflow-hidden shadow-lg p-4 mt-4 bg-black text-white text-center justify-center gap-4">
         <p className="font-bold">If you want to donate by youself, Here are some authentic registered charity organizations:</p>
         <p>1. MATW Project - <a href="https://matwproject.org/" target="_blank" rel="noopener noreferrer">https://matwproject.org/</a></p>
-        {/* <p>2. Mercy Malaysia - https://www.mercy.org.my/</p>
-        <p>3. Yayasan Amal Malaysia - https://yayasanamalmalaysia.org/</p>
-        <p>4. Global Peace Mission (GPM) - https://www.gpm.org.my/</p>
-        <p>5. Humanitarian Care Malaysia (MyCARE) - https://mycare.org.my/</p> */}
         </div>
         <div className="flex flex-row rounded overflow-hidden shadow-lg p-4 mt-4 bg-gray-800 text-white text-center justify-center gap-4">
         <p className="text-xs">Report at zain.ahmed199524@gmail.com, If you found any wrong hadith</p>

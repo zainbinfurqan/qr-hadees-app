@@ -1,7 +1,7 @@
 import axios from "axios";
 
-export async function GET() {
-
+export async function GET(request) {
+const { searchParams } = new URL(request.url);
     const editions = [
         'eng-abudawud',
         'eng-bukhari',
@@ -10,14 +10,22 @@ export async function GET() {
         'eng-nasai',
         'eng-ibnmajah'
     ];
-    const randomEdition = editions[Math.floor(Math.random() * editions.length)
-    ]
+    let randomEdition = editions[Math.floor(Math.random() * editions.length)];
+    let randomHadithNumber = Math.floor(Math.random() * 5000)
+    if(searchParams.get("edition") && searchParams.get("number")){
+        randomEdition = searchParams.get("edition");
+        randomHadithNumber = searchParams.get("number");
+    }
   try {
     const response = await axios.get(
-      `https://cdn.jsdelivr.net/gh/fawazahmed0/hadith-api@1/editions/${randomEdition}/${Math.floor(Math.random() * 5000)}.json`
+      `https://cdn.jsdelivr.net/gh/fawazahmed0/hadith-api@1/editions/${randomEdition}/${randomHadithNumber}.json`
+    );
+    // const a = randomEdition
+    const responseUrdu = await axios.get(
+      `https://cdn.jsdelivr.net/gh/fawazahmed0/hadith-api@1/editions/${randomEdition.replace("eng", "urd")}/${randomHadithNumber}.json`
     );
     const hadeesList = response.data;
-    return new Response(JSON.stringify({ text: hadeesList }), {
+    return new Response(JSON.stringify({ text: hadeesList, urdu:responseUrdu.data?.hadiths[0]?.text }), {
       status: 200,
       headers: { "Content-Type": "application/json" },
     });

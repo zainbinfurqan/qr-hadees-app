@@ -17,7 +17,6 @@ export const InstallPrompt = () => {
   if (isStandalone) {
     return null // Don't show install button if already installed
   }
- console.log({isIOS, isStandalone});
   return (
     <div>
       <h3>Install App</h3>

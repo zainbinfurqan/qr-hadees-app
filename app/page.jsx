@@ -13,7 +13,6 @@ export default function Home() {
 
     // Foreground messages
     onMessage((payload) => {
-      console.log("Foreground message:", payload);
       if (Notification.permission === "granted") {
         new Notification(payload.notification?.title || "Notification", {
           body: payload.notification?.body || "",
@@ -22,11 +21,7 @@ export default function Home() {
       }
     });
         window.addEventListener("click", (e) => {
-          console.log("GESTURE: click", {
-            x: e.clientX,
-            y: e.clientY,
-            target: e.target?.tagName
-          });
+        
           if(granted !== 'granted'){
 enableNotifications()
           }
@@ -51,7 +46,6 @@ enableNotifications()
   ]
 
   const InstallPWAButton = () => {
-    console.log("canInstall:", canInstall);
     if (!canInstall) return null;
 
   return (
@@ -64,8 +58,9 @@ enableNotifications()
   return (
     <div className="flex py-10 flex-col min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
         <div className="flex justify-between w-full px-7">
-      <InstallPWAButton/>
-        <a className="self-end mx-2 top-4 right-4 bg-blue-500 hover:bg-blue-700 text-white text-xs font-semibold py-1 px-2 rounded" href="/another">Show me Hadith</a>
+      {/* <InstallPWAButton/> */}
+        <a className="self-end mx-2 top-4 right-4 bg-blue-500 hover:bg-blue-700 text-white  text-md py-1 px-2 rounded" href="/another">Random Hadith</a>
+        <a className="self-end mx-2 top-4 right-4 bg-blue-500 hover:bg-blue-700 text-white text-md py-1 px-2 rounded" href="/ramadan">Ramadan/Fasting Hadith</a>
         </div>
       <LinkCard url={links[9]}>
   {"Dua's for Ramadam specialy"}

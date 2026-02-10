@@ -12,7 +12,6 @@ export function usePWAInstall() {
       e.preventDefault();
       setDeferredPrompt(e);
       setCanInstall(true);
-      console.log("Install prompt available");
     };
 
     window.addEventListener("beforeinstallprompt", handler);

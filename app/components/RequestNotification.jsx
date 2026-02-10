@@ -9,10 +9,7 @@ export const  useRequestNotification = () => {
 
   const enableNotifications = async () => {
     try {
-      console.log("Environment:", process.env.NODE_ENV);
-      console.log("Requesting notification permission...");
       const permission = await Notification.requestPermission();
-      console.log("permission:", permission);
       if (permission !== "granted") return;
 
       // Register service worker
@@ -24,7 +21,6 @@ export const  useRequestNotification = () => {
         serviceWorkerRegistration: reg,
       });
 
-      console.log("FCM Token:", token);
         await fetch("/api/save-token", {
           method: "POST",
           headers: {
