@@ -119,7 +119,7 @@ useEffect(() => {
   return (
     <>
       {hadithReadCount > 0 && <p className="text-center rounded overflow-hidden shadow-lg p-4 mt-4 bg-white text-black font-semibold text-blue-600">{remainingTime}</p>}
-      {hadees && <div className=" max-w-md rounded overflow-hidden shadow-lg mx-auto p-6 mt-10 bg-green-900 text-center text-white">
+      {hadees && <div className=" max-w-md rounded overflow-hidden shadow-lg mx-auto p-6 mt-2 bg-green-900 text-center text-white">
       {/* <h1 className="font-bold text-xl mb-2">Only for testing purpose for now</h1> */}
       <div className="flex flex-row justify-between">
       <a href="/" className="flex">
