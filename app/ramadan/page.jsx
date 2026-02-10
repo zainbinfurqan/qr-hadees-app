@@ -1,5 +1,9 @@
 'use client'
-import { useEffect, useState } from "react"
+import { useEffect, useState , useRef} from "react"
+import * as htmlToImage from 'html-to-image';
+import { jsPDF } from "jspdf";
+import html2canvas from "html2canvas";
+import { Image as ImageIcon, FileText } from "lucide-react";
 
 const ramadan_hadees = {
     "eng-abudawud":[[1371, 1400], [2313, 2476]],
@@ -88,8 +92,113 @@ useEffect(() => {
     useEffect(() => {
          fetchHadees()
     }, [])
+
+// --text to image //
+const ref = useRef();
+
+
+  const shareImage = async () => {
+    const dataUrl = await htmlToImage.toPng(ref.current);
+
+    const blob = await (await fetch(dataUrl)).blob();
+    const file = new File([blob], "text-image.png", { type: "image/png" });
+
+    if (navigator.share) {
+      await navigator.share({
+        title: "Hadees Image",
+        files: [file],
+      });
+    } else {
+      alert("Share not supported on this browser");
+    }
+  };
+
+//   text to PDF //
+const sharePDF = async () => {
+    const element = ref.current;
+
+    const canvas = await html2canvas(element, {
+      scale: 3, // better quality
+      onclone: (doc) => {
+        doc.querySelectorAll("*").forEach(el => {
+        el.style.color = "#000";
+        el.style.backgroundColor = "#fff";
+        });
+  }
+    });
+
+    const imgData = canvas.toDataURL("image/png");
+
+    const pdf = new jsPDF("p", "mm", "a3");
+
+    const pageWidth = pdf.internal.pageSize.getWidth();
+  const pageHeight = pdf.internal.pageSize.getHeight();
+
+    const margin = 10; // ✅ margin mm
+    let position = margin;
+    const imgWidth = pageWidth - margin * 2;
+     const pxPerMm = canvas.width / imgWidth;
+
+    const imgHeight = canvas.height * imgWidth / canvas.width;
+const pageHeightPx = (pageHeight - margin * 2) * pxPerMm;
+   
+  let y = 0;
+
+  while (y < canvas.height) {
+    const pageCanvas = document.createElement("canvas");
+    pageCanvas.width = canvas.width;
+    pageCanvas.height = Math.min(pageHeightPx, canvas.height - y);
+
+    const ctx = pageCanvas.getContext("2d");
+
+    ctx.drawImage(
+      canvas,
+      0,
+      y,
+      canvas.width,
+      pageCanvas.height,
+      0,
+      0,
+      canvas.width,
+      pageCanvas.height
+    );
+
+    const imgData = pageCanvas.toDataURL("image/png");
+
+    if (y > 0) pdf.addPage();
+
+    const imgHeight = pageCanvas.height / pxPerMm;
+
+    pdf.addImage(
+      imgData,
+      "PNG",
+      margin,
+      margin,
+      imgWidth,
+      imgHeight
+    );
+
+    y += pageHeightPx;
+  }
+     // download fallback
+    pdf.save("Hadees.pdf");
+
+    // share option
+    const blob = pdf.output("blob");
+    const file = new File([blob], "Hadees.pdf", {
+      type: "application/pdf",
+    });
+
+    if (navigator.share) {
+      await navigator.share({
+        files: [file],
+        title: "Hadees PDF",
+      });
+    }
+  };
+
     return (
-        hadees && <div className=" max-w-md rounded overflow-hidden shadow-lg mx-auto p-6 mt-2 bg-green-900 text-center text-white">
+        hadees && <div className=" max-w-md rounded overflow-hidden shadow-lg mx-auto p-6 mt-10 bg-green-900 text-center text-white">
             <div className="flex flex-row justify-between">
       <a href="/" className="flex">
       <span aria-hidden="true" className="mr-1">←</span>
@@ -97,10 +206,17 @@ useEffect(() => {
       </a>
         </div>
       <h1 className="font-bold text-xl mb-2">Hadees</h1>
+      <div className="flex flex-row  gap-4 justify-end">
+        <p>Share</p>
+        <p className="cursor-pointer" onClick={shareImage}><ImageIcon size={20} /></p>
+        <p className="cursor-pointer" onClick={sharePDF}><FileText size={20} /></p>
+      </div>
       <div className="flex flex-row text-center justify-center gap-4 mb-4 rounded overflow-hidden shadow-lg p-4 mt-4 bg-white text-black">
       {hadees?.hadiths && hadees?.hadiths.length >0 && <p>Arabic Number: {hadees?.hadiths[0].arabicnumber}</p>}
       {hadees?.hadiths && hadees?.hadiths.length >0 && <p>Hadith Number: {hadees?.hadiths[0].hadithnumber}</p>}
       </div>
+      
+      {<div ref={ref}>
       {hadees?.hadiths && hadees?.hadiths.length >0 && <a href={linkToHadith} target="_blank" rel="noopener noreferrer" className="block">
         <p className="rounded overflow-hidden shadow-lg p-4 mt-4 bg-white text-blue-600 hover:bg-blue-50 hover:shadow-xl hover:scale-105 transition-all duration-200 cursor-pointer font-semibold" >
           {hadees?.hadiths[0].text}
@@ -116,6 +232,7 @@ useEffect(() => {
         </div>
         </a>
       }
+      </div>}
       {hadees?.hadiths && hadees?.hadiths.length >0 && hadees?.hadiths[0].grades?.map((grade, index) => (
         <div key={index}  className="rounded overflow-hidden shadow-lg p-4 mt-4 bg-white text-black">
           <p>
