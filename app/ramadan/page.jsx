@@ -103,7 +103,7 @@ const ref = useRef();
 
     if (navigator.share) {
       await navigator.share({
-        title: "Shared Text",
+        title: "Hadees Image",
         files: [file],
       });
     } else {
@@ -113,20 +113,55 @@ const ref = useRef();
 
 //   text to PDF //
 const sharePDF = async () => {
-    const doc = new jsPDF();
+    // const doc = new jsPDF();
 
-    doc.text("This is my text to convert into PDF", 10, 20);
+    // doc.text("This is my text to convert into PDF", 10, 20);
 
-    const blob = doc.output("blob");
-    const file = new File([blob], "text.pdf", { type: "application/pdf" });
+    // const blob = doc.output("blob");
+    // const file = new File([blob], "text.pdf", { type: "application/pdf" });
+
+    // if (navigator.share) {
+    //   await navigator.share({
+    //     files: [file],
+    //     title: "PDF File"
+    //   });
+    // } else {
+    //   alert("Share not supported");
+    // }
+
+    const element = ref.current;
+
+    const canvas = await html2canvas(element, {
+      scale: 2, // better quality
+    });
+
+    const imgData = canvas.toDataURL("image/png");
+
+    const pdf = new jsPDF({
+      orientation: "portrait",
+      unit: "px",
+      format: "a4",
+    });
+
+    const imgWidth = 595;
+    const imgHeight = canvas.height * imgWidth / canvas.width;
+
+    pdf.addImage(imgData, "PNG", 0, 0, imgWidth, imgHeight);
+
+    // download fallback
+    pdf.save("content.pdf");
+
+    // share option
+    const blob = pdf.output("blob");
+    const file = new File([blob], "content.pdf", {
+      type: "application/pdf",
+    });
 
     if (navigator.share) {
       await navigator.share({
         files: [file],
-        title: "PDF File"
+        title: "Hadees PDF",
       });
-    } else {
-      alert("Share not supported");
     }
   };
 
