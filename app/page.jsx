@@ -11,6 +11,7 @@ import Image from "next/image";
 export default function Home() {
   const { enableNotifications, granted } = useRequestNotification()
   const { canInstall, install } = usePWAInstall()
+  const [isPWA, setIsPWA] = useState(false);
   useEffect(() => {
     if (typeof window === "undefined") return;
 
@@ -59,6 +60,18 @@ enableNotifications()
   );
 }
 
+ useEffect(() => {
+    if (
+      window.matchMedia('(display-mode: standalone)').matches ||
+      window.navigator.standalone
+    ) {
+      console.log("PWA Mode");
+      setIsPWA(true);
+    } else {
+      console.log("Browser Mode");
+    }setIsPWA(false);
+  }, []);
+
   return (
     <div className="flex py-10 flex-col min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
         <div className="flex justify-evenly w-full px-7">
@@ -99,7 +112,7 @@ enableNotifications()
 <LinkCard url={links[1]}>
   {"Khutbah 30th Jan"}
 </LinkCard>
-<HalfModalExample>
+{isPWA && <HalfModalExample>
   <>
     <div className="py-3">
       <p className="text-lg text-center">Install the App</p>
@@ -131,7 +144,7 @@ enableNotifications()
               <p className="text-gray-700 text-sm flex items-center">Look for the <Image alt='' src="/app-icon.jpg" width={20} height={20} className="mx-1"/> on your home screen</p>
   </div>
   </>
-</HalfModalExample>
+</HalfModalExample>}
     </div>
   );
 }
