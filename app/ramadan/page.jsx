@@ -3,6 +3,7 @@ import { useEffect, useState , useRef} from "react"
 import * as htmlToImage from 'html-to-image';
 import { jsPDF } from "jspdf";
 import html2canvas from "html2canvas";
+import { Image as ImageIcon, FileText } from "lucide-react";
 
 const ramadan_hadees = {
     "eng-abudawud":[[1371, 1400], [2313, 2476]],
@@ -114,47 +115,44 @@ const ref = useRef();
 
 //   text to PDF //
 const sharePDF = async () => {
-    // const doc = new jsPDF();
-
-    // doc.text("This is my text to convert into PDF", 10, 20);
-
-    // const blob = doc.output("blob");
-    // const file = new File([blob], "text.pdf", { type: "application/pdf" });
-
-    // if (navigator.share) {
-    //   await navigator.share({
-    //     files: [file],
-    //     title: "PDF File"
-    //   });
-    // } else {
-    //   alert("Share not supported");
-    // }
-
     const element = ref.current;
 
     const canvas = await html2canvas(element, {
-      scale: 2, // better quality
+      scale: 3, // better quality
+      onclone: (doc) => {
+        doc.querySelectorAll("*").forEach(el => {
+        el.style.color = "#000";
+        el.style.backgroundColor = "#fff";
+        });
+  }
     });
 
     const imgData = canvas.toDataURL("image/png");
 
-    const pdf = new jsPDF({
-      orientation: "portrait",
-      unit: "px",
-      format: "a4",
-    });
+    const pdf = new jsPDF("p", "mm", "a3");
 
-    const imgWidth = 595;
+    const pageWidth = pdf.internal.pageSize.getWidth();
+
+    const margin = 10; // ✅ margin mm
+
+    const imgWidth = pageWidth - margin * 2;
     const imgHeight = canvas.height * imgWidth / canvas.width;
 
-    pdf.addImage(imgData, "PNG", 0, 0, imgWidth, imgHeight);
+    pdf.addImage(
+      imgData,
+      "PNG",
+      margin,
+      margin,
+      imgWidth,
+      imgHeight
+    );
 
     // download fallback
-    pdf.save("content.pdf");
+    pdf.save("Hadees.pdf");
 
     // share option
     const blob = pdf.output("blob");
-    const file = new File([blob], "content.pdf", {
+    const file = new File([blob], "Hadees.pdf", {
       type: "application/pdf",
     });
 
@@ -175,15 +173,16 @@ const sharePDF = async () => {
       </a>
         </div>
       <h1 className="font-bold text-xl mb-2">Hadees</h1>
+      <div className="flex flex-row  gap-4 justify-end">
+        <p>Share</p>
+        <p className="cursor-pointer" onClick={shareImage}><ImageIcon size={20} /></p>
+        <p className="cursor-pointer" onClick={sharePDF}><FileText size={20} /></p>
+      </div>
       <div className="flex flex-row text-center justify-center gap-4 mb-4 rounded overflow-hidden shadow-lg p-4 mt-4 bg-white text-black">
       {hadees?.hadiths && hadees?.hadiths.length >0 && <p>Arabic Number: {hadees?.hadiths[0].arabicnumber}</p>}
       {hadees?.hadiths && hadees?.hadiths.length >0 && <p>Hadith Number: {hadees?.hadiths[0].hadithnumber}</p>}
       </div>
-      <div>
-        <p>Share</p>
-        <p onClick={shareImage}>Image</p>
-        <p onClick={sharePDF}>pdf</p>
-      </div>
+      
       {<div ref={ref}>
       {hadees?.hadiths && hadees?.hadiths.length >0 && <a href={linkToHadith} target="_blank" rel="noopener noreferrer" className="block">
         <p className="rounded overflow-hidden shadow-lg p-4 mt-4 bg-white text-blue-600 hover:bg-blue-50 hover:shadow-xl hover:scale-105 transition-all duration-200 cursor-pointer font-semibold" >
