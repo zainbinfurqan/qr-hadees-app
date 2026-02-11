@@ -29,10 +29,24 @@ export const Hadith = ({
       <h1 className="font-bold text-xl mb-2">Hadees</h1>
       <div className="flex flex-row  gap-4 justify-end">
         <p>Share</p>
-        <p className="cursor-pointer" onClick={handleShareImage}>
+        <p
+          className="cursor-pointer"
+          onClick={() =>
+            handleShareImage(
+              `Book name: ${hadees?.metadata.section[hadees?.hadiths[0].reference.book]} - Book number: ${hadees?.hadiths[0].reference.book} - Hadith: ${hadees?.hadiths[0].reference.hadith} - Author: ${hadees?.metadata.name} - Hadith number: ${hadees?.hadiths[0].hadithnumber}`
+            )
+          }
+        >
           <ImageIcon size={20} />
         </p>
-        <p className="cursor-pointer" onClick={handleSharePDF}>
+        <p
+          className="cursor-pointer"
+          onClick={() =>
+            handleSharePDF(
+              `Book name: ${hadees?.metadata.section[hadees?.hadiths[0].reference.book]} - Book nmber: ${hadees?.hadiths[0].reference.book} - Hadith: ${hadees?.hadiths[0].reference.hadith} - Author: ${hadees?.metadata.name} - Hadith number: ${hadees?.hadiths[0].hadithnumber}`
+            )
+          }
+        >
           <FileText size={20} />
         </p>
       </div>

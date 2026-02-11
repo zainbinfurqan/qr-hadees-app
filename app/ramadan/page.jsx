@@ -15,7 +15,7 @@ export default function Page() {
   useEffect(() => {
     hadees &&
       setLinkToHadith(
-        `https://sunnah.com/${books[hadees?.metadata.name]}:${hadees?.hadiths[0].hadithnumber}`
+        `${process.env.NEXT_PUBLIC_SUNNAH_URL}${books[hadees?.metadata.name]}:${hadees?.hadiths[0].hadithnumber}`
       )
   }, [hadees])
 
@@ -65,18 +65,18 @@ export default function Page() {
     fetchHadees()
   }, [])
 
-  const handleShareImage = async () => {
-    shareImage(ref)
+  const handleShareImage = async (title) => {
+    shareImage(ref, title)
   }
 
-  const handleSharePDF = async () => {
-    sharePDF(ref)
+  const handleSharePDF = async (title) => {
+    sharePDF(ref, title)
   }
 
   return (
     <Hadith
-      handleShareImage={handleShareImage}
-      handleSharePDF={handleSharePDF}
+      handleShareImage={(title) => handleShareImage(title)}
+      handleSharePDF={(title) => handleSharePDF(title)}
       hadees={hadees}
       linkToAuthenticateHadith={linkToHadith}
       totalDonations={null}
