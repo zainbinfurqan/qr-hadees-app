@@ -2,7 +2,6 @@ import "./globals.css";
 import { Nunito } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next';
 import { SpeedInsights } from '@vercel/speed-insights/next';
-import { InstallPrompt } from "./components/SubscribePushNotification";
 import { Metadata } from "next";
 
 const nunito = Nunito({
