@@ -17,14 +17,6 @@ export default function HalfModal({children}) {
 
   return (
     <div className="p-10">
-
-      <button
-        onClick={() => setOpen(true)}
-        className="px-4 py-2 bg-blue-600 text-white rounded"
-      >
-        Open
-      </button>
-
       {open && (
         <>
           {/* overlay */}
