@@ -16,7 +16,7 @@ export default function HalfModal({children}) {
   };
 
   return (
-    <div className="p-10">
+    <div className="">
       {open && (
         <>
           <div
