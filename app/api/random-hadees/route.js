@@ -1,15 +1,9 @@
 import axios from "axios";
+import { editions } from "../../constants/constants";
 
 export async function GET(request) {
 const { searchParams } = new URL(request.url);
-    const editions = [
-        'eng-abudawud',
-        'eng-bukhari',
-        'eng-muslim',
-        'eng-tirmidhi',
-        'eng-nasai',
-        'eng-ibnmajah'
-    ];
+
     let randomEdition = editions[Math.floor(Math.random() * editions.length)];
     let randomHadithNumber = Math.floor(Math.random() * 5000)
     if(searchParams.get("edition") && searchParams.get("number")){
@@ -20,7 +14,6 @@ const { searchParams } = new URL(request.url);
     const response = await axios.get(
       `https://cdn.jsdelivr.net/gh/fawazahmed0/hadith-api@1/editions/${randomEdition}/${randomHadithNumber}.json`
     );
-    // const a = randomEdition
     const responseUrdu = await axios.get(
       `https://cdn.jsdelivr.net/gh/fawazahmed0/hadith-api@1/editions/${randomEdition.replace("eng", "urd")}/${randomHadithNumber}.json`
     );

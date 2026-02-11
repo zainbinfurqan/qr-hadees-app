@@ -1,6 +1,7 @@
 {
-    "name": "Your app name",
-    "short_name": "App shot name",
+     "name": "Hadess App",
+    "short_name": "Hadess App",
+    "description": "Learn a new hadith everyday. Share authentic hadiths with your friends and family.",
     "theme_color": "#00ff00",
     "background_color": "#ffffff",
     "display": "standalone",

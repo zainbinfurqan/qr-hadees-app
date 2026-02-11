@@ -1,4 +1,4 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 /* @import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap'); */
 
 :root {
@@ -8,13 +8,21 @@
 }
 
 @keyframes slideUp {
-  from { transform: translateY(100%); }
-  to { transform: translateY(0); }
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(0);
+  }
 }
 
 @keyframes slideDown {
-  from { transform: translateY(0); }
-  to { transform: translateY(100%); }
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(100%);
+  }
 }
 
 .animate-slideUp {
@@ -35,7 +43,7 @@
   :root {
     --background: #0a0a0a;
     --foreground: #ededed;
-  --font-nunito: 'var(--font-nunito)', sans-serif;
+    --font-nunito: 'var(--font-nunito)', sans-serif;
   }
 }
 

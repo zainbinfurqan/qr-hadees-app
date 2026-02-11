@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from "react";
-import { ClosedCaption, XCircleIcon,  } from "lucide-react";
+import { XCircleIcon,  } from "lucide-react";
 
 export default function HalfModal({children}) {
   const [open, setOpen] = useState(true);
@@ -16,16 +16,13 @@ export default function HalfModal({children}) {
   };
 
   return (
-    <div className="p-10">
+    <div className="">
       {open && (
         <>
-          {/* overlay */}
           <div
             className="fixed inset-0 bg-black/40"
             onClick={closeModal}
           />
-
-          {/* modal */}
           <div className={`
             fixed bottom-0 left-0 right-0
             h-1/2 bg-white rounded-t-2xl p-6 z-50
