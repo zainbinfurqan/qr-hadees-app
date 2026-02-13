@@ -49,78 +49,114 @@ enableNotifications()
 
   return (
     <div className="flex py-10 flex-col min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-        <div className="flex justify-evenly w-full px-7">
-        <a className="self-end mx-2 top-4 right-4 bg-blue-500 hover:bg-blue-700 text-white text-sm   py-1 px-2 rounded" href="/another">Random Hadith</a>
-        <a className="self-end mx-2 top-4 right-4 bg-blue-500 hover:bg-blue-700 text-white text-sm py-1 px-2 rounded" href="/ramadan">Ramadan/Fasting Hadith</a>
-        </div>
+      <div className="flex justify-evenly w-full px-7">
+        <a
+          className="self-end mx-2 top-4 right-4 bg-blue-500 hover:bg-blue-700 text-white text-sm   py-1 px-2 rounded"
+          href="/another"
+        >
+          Random Hadith
+        </a>
+        <a
+          className="self-end mx-2 top-4 right-4 bg-blue-500 hover:bg-blue-700 text-white text-sm py-1 px-2 rounded"
+          href="/ramadan"
+        >
+          Ramadan/Fasting Hadith
+        </a>
+      </div>
       <LinkCard url={resourcesLinks[9]}>
-  {"Dua's for Ramadam specialy"}
-</LinkCard>
-     <LinkCard url={resourcesLinks[8]}>
-  {"Qoutes for daily motivation and reflection"}
-</LinkCard>
-<LinkCard url={resourcesLinks[2]}>
-  {"Khutbah’s you could listen to pre-Ramadan"}
-</LinkCard>
-<LinkCard url={resourcesLinks[3]}>
-  {"Spiritual Talk | WSG | Moeen Mahmood"}
-</LinkCard>
-<LinkCard url={resourcesLinks[4]}>
-  {" ⁠App that teaches 80% of the words in Quran Duo Lingo style"}
-</LinkCard>
-<LinkCard url={resourcesLinks[5]}>
-  {"⁠Project Zamzam, visual summary of Surahs playlist"}
-</LinkCard>
-<LinkCard url={resourcesLinks[6]}>
-  {"Reflecting_On_the_Names_of_Allah"}
-</LinkCard>
-<LinkCard url={resourcesLinks[7]}>
-  {"How to prepare for Ramadan | Moeen Mahmood | Short"}
-</LinkCard>
-<LinkCard url={resourcesLinks[10]}>
-  {"Life Is Full of Hardships"}
-</LinkCard>
- <LinkCard url={resourcesLinks[0]}>
-  {"Khutbah 6th Feb"}
-</LinkCard>
-<LinkCard url={resourcesLinks[1]}>
-  {"Khutbah 30th Jan"}
-</LinkCard>
-{!isPWA && <HalfModalExample>
-  <>
-    <div className="py-3">
-      <p className="text-lg text-center">Install the App</p>
+        {"Dua's for Ramadam specially"}
+      </LinkCard>
+      <LinkCard url={resourcesLinks[8]}>
+        {'Qoutes for daily motivation and reflection'}
+      </LinkCard>
+      <LinkCard url={resourcesLinks[2]}>
+        {'Khutbah’s you could listen to pre-Ramadan'}
+      </LinkCard>
+      <LinkCard url={resourcesLinks[3]}>
+        {'Spiritual Talk | WSG | Moeen Mahmood'}
+      </LinkCard>
+      <LinkCard url={resourcesLinks[4]}>
+        {' ⁠App that teaches 80% of the words in Quran Duo Lingo style'}
+      </LinkCard>
+      <LinkCard url={resourcesLinks[5]}>
+        {'⁠Project Zamzam, visual summary of Surahs playlist'}
+      </LinkCard>
+      <LinkCard url={resourcesLinks[6]}>
+        {'Reflecting_On_the_Names_of_Allah'}
+      </LinkCard>
+      <LinkCard url={resourcesLinks[7]}>
+        {'How to prepare for Ramadan | Moeen Mahmood | Short'}
+      </LinkCard>
+      <LinkCard url={resourcesLinks[10]}>
+        {'Life Is Full of Hardships'}
+      </LinkCard>
+      <LinkCard url={resourcesLinks[0]}>{'Khutbah 6th Feb'}</LinkCard>
+      <LinkCard url={resourcesLinks[1]}>{'Khutbah 30th Jan'}</LinkCard>
+      {!isPWA && (
+        <HalfModalExample>
+          <>
+            <div className="py-3">
+              <p className="text-lg text-center">Install the App</p>
+            </div>
+            <div className="flex items-center mb-2">
+              <div className="flex-shrink-0 w-4 h-4 text-xs bg-green-800 text-white font-bold rounded flex items-center justify-center mr-1">
+                1
+              </div>
+              <p className="text-gray-700 text-sm flex items-center">
+                Open this page in Safari
+              </p>
+            </div>
+
+            <div className="flex items-center mb-2">
+              <div className="flex-shrink-0 w-4 h-4 text-xs bg-green-800 text-white font-bold rounded flex items-center justify-center mr-1">
+                2
+              </div>
+              <p className="text-gray-700 text-sm flex items-center">
+                Tap the{' '}
+                <Share
+                  style={{
+                    margin: '0px 4px',
+                  }}
+                  size={15}
+                />{' '}
+                button
+              </p>
+            </div>
+
+            <div className="flex items-center mb-2">
+              <div className="flex-shrink-0 w-4 h-4 text-xs bg-green-800 text-white font-bold rounded flex items-center justify-center mr-1">
+                3
+              </div>
+              <p className="text-gray-700 text-sm flex items-center">
+                Select{' '}
+                <span className="mx-1 bg-gray-100 px-1 rounded">
+                  {' '}
+                  Add to Home Screen
+                </span>
+              </p>
+            </div>
+
+            <div className="flex items-center mb-2">
+              <div className="flex-shrink-0 w-4 h-4 text-xs bg-green-800 text-white font-bold rounded flex items-center justify-center mr-1">
+                4
+              </div>
+              <p className="text-gray-700 text-sm flex items-center">
+                Look for the{' '}
+                <Image
+                  alt=""
+                  src="/app-icon.jpg"
+                  width={20}
+                  height={20}
+                  className="mx-1"
+                />{' '}
+                on your home screen
+              </p>
+            </div>
+          </>
+        </HalfModalExample>
+      )}
     </div>
-  <div className="flex items-center mb-2">
-  
-  <div className="flex-shrink-0 w-4 h-4 text-xs bg-green-800 text-white font-bold rounded flex items-center justify-center mr-1">1
-  </div>
-              <p className="text-gray-700 text-sm flex items-center">Open this page in Safari</p>
-  </div>
-
- <div className="flex items-center mb-2">
-  <div className="flex-shrink-0 w-4 h-4 text-xs bg-green-800 text-white font-bold rounded flex items-center justify-center mr-1">2
-  </div>
-              <p className="text-gray-700 text-sm flex items-center">Tap the <Share style={{
-                margin: '0px 4px'
-              }} size={15}/> button</p>
-  </div>
-
-   <div className="flex items-center mb-2">
-  <div className="flex-shrink-0 w-4 h-4 text-xs bg-green-800 text-white font-bold rounded flex items-center justify-center mr-1">3
-  </div>
-              <p className="text-gray-700 text-sm flex items-center">Select <span className="mx-1 bg-gray-100 px-1 rounded"> Add to Home Screen</span></p>
-  </div>
-
-   <div className="flex items-center mb-2">
-  <div className="flex-shrink-0 w-4 h-4 text-xs bg-green-800 text-white font-bold rounded flex items-center justify-center mr-1">4
-  </div>
-              <p className="text-gray-700 text-sm flex items-center">Look for the <Image alt='' src="/app-icon.jpg" width={20} height={20} className="mx-1"/> on your home screen</p>
-  </div>
-  </>
-</HalfModalExample>}
-    </div>
-  );
+  )
 }
 
 function getLinkType(url) {
