@@ -62,32 +62,35 @@ enableNotifications()
       <LinkCard url={resourcesLinks[9]}>
         {"Dua's for Ramadam specially"}
       </LinkCard>
+      <LinkCard url={resourcesLinks[11]}>
+        {"Quran recitation by Yasser Al-Dosari"}
+      </LinkCard>
       <LinkCard url={resourcesLinks[8]}>
-        {'Qoutes for daily motivation and reflection'}
+        {"Qoutes for daily motivation and reflection"}
       </LinkCard>
       <LinkCard url={resourcesLinks[2]}>
-        {'Khutbah’s you could listen to pre-Ramadan'}
+        {"Khutbah’s you could listen to pre-Ramadan"}
       </LinkCard>
       <LinkCard url={resourcesLinks[3]}>
-        {'Spiritual Talk | WSG | Moeen Mahmood'}
+        {"Spiritual Talk | WSG | Moeen Mahmood"}
       </LinkCard>
       <LinkCard url={resourcesLinks[4]}>
-        {' ⁠App that teaches 80% of the words in Quran Duo Lingo style'}
+        {" ⁠App that teaches 80% of the words in Quran Duo Lingo style"}
       </LinkCard>
       <LinkCard url={resourcesLinks[5]}>
-        {'⁠Project Zamzam, visual summary of Surahs playlist'}
+        {"⁠Project Zamzam, visual summary of Surahs playlist"}
       </LinkCard>
       <LinkCard url={resourcesLinks[6]}>
-        {'Reflecting_On_the_Names_of_Allah'}
+        {"Reflecting_On_the_Names_of_Allah"}
       </LinkCard>
       <LinkCard url={resourcesLinks[7]}>
-        {'How to prepare for Ramadan | Moeen Mahmood | Short'}
+        {"How to prepare for Ramadan | Moeen Mahmood | Short"}
       </LinkCard>
       <LinkCard url={resourcesLinks[10]}>
-        {'Life Is Full of Hardships'}
+        {"Life Is Full of Hardships"}
       </LinkCard>
-      <LinkCard url={resourcesLinks[0]}>{'Khutbah 6th Feb'}</LinkCard>
-      <LinkCard url={resourcesLinks[1]}>{'Khutbah 30th Jan'}</LinkCard>
+      <LinkCard url={resourcesLinks[0]}>{"Khutbah 6th Feb"}</LinkCard>
+      <LinkCard url={resourcesLinks[1]}>{"Khutbah 30th Jan"}</LinkCard>
       {!isPWA && (
         <HalfModalExample>
           <>
@@ -108,13 +111,13 @@ enableNotifications()
                 2
               </div>
               <p className="text-gray-700 text-sm flex items-center">
-                Tap the{' '}
+                Tap the{" "}
                 <Share
                   style={{
-                    margin: '0px 4px',
+                    margin: "0px 4px",
                   }}
                   size={15}
-                />{' '}
+                />{" "}
                 button
               </p>
             </div>
@@ -124,9 +127,9 @@ enableNotifications()
                 3
               </div>
               <p className="text-gray-700 text-sm flex items-center">
-                Select{' '}
+                Select{" "}
                 <span className="mx-1 bg-gray-100 px-1 rounded">
-                  {' '}
+                  {" "}
                   Add to Home Screen
                 </span>
               </p>
@@ -137,14 +140,14 @@ enableNotifications()
                 4
               </div>
               <p className="text-gray-700 text-sm flex items-center">
-                Look for the{' '}
+                Look for the{" "}
                 <Image
                   alt=""
                   src="/app-icon.jpg"
                   width={20}
                   height={20}
                   className="mx-1"
-                />{' '}
+                />{" "}
                 on your home screen
               </p>
             </div>
@@ -162,6 +165,7 @@ function getLinkType(url) {
   if (lower.includes("facebook.com") || lower.includes("fb.watch") || lower.includes("fb.com") || lower.includes("m.facebook.com")) return "facebook";
   if (lower.includes("apps.apple.com")) return "app-apple";
   if (lower.includes("play.google.com")) return "app-play";
+  if (lower.includes("assabile")) return "audio"
   try {
     const parsed = new URL(url);
     const path = parsed.pathname.toLowerCase();
@@ -175,42 +179,68 @@ function getLinkType(url) {
 }
 
 const LinkCard = ({ url, children }) => {
-  const type = getLinkType(url);
-    const normalizedUrl = typeof url === "string" ? url.replace(/^\/+(?=https?:\/\/)/i, "") : url;
-
+  const type = getLinkType(url)
+  const normalizedUrl =
+    typeof url === "string" ? url.replace(/^\/+(?=https?:\/\/)/i, "") : url
   const badgeText =
-    type === "youtube" ? "YouTube" :
-    type === "pdf" ? "PDF" : 
-    type === "facebook" ? "Facebook" :
-    type === "app-apple" ? "App Store" :
-    type === "app-play" ? "Google Play" : null;
+    type === "youtube"
+      ? "YouTube"
+      : type === "pdf"
+        ? "PDF"
+        : type === "facebook"
+          ? "Facebook"
+          : type === "app-apple"
+            ? "App Store"
+            : type === "app-play"
+              ? "Google Play"
+              : type === "audio"
+                ? "Audio"
+                : null
   const badgeClass =
-    type === "youtube" ? "bg-red-600" :
-    type === "pdf" ? "bg-gray-800" :
-    type === "facebook" ? "bg-blue-600" :
-    type === "app-apple" ? "bg-black" :
-    type === "app-play" ? "bg-green-600" : "bg-transparent";
+    type === "youtube"
+      ? "bg-red-600"
+      : type === "pdf"
+        ? "bg-gray-800"
+        : type === "facebook"
+          ? "bg-blue-600"
+          : type === "app-apple"
+            ? "bg-black"
+            : type === "audio"
+              ? "bg-black"
+              : null
   return (
     <a
       href={normalizedUrl}
       target="_blank"
       rel="noopener noreferrer"
-      aria-label={badgeText ? `Open ${badgeText} (new tab)` : "Open link (new tab)"}
+      aria-label={
+        badgeText ? `Open ${badgeText} (new tab)` : "Open link (new tab)"
+      }
       className="block"
     >
       <div className=" w-96 text-center relative rounded rounded-lg overflow-hidden shadow-lg p-4 mt-4 bg-white text-black hover:shadow-xl transition">
         {badgeText && (
-          <span className={` absolute top-2 right-2 text-xs px-2 py-1 rounded text-white ${badgeClass}`}>
-            {badgeText} {(type === "youtube" || type === "facebook" || type === "app-apple" || type === "app-play") ? "▶" : ""}
+          <span
+            className={` absolute top-2 right-2 text-xs px-2 py-1 rounded text-white ${badgeClass}`}
+          >
+            {badgeText}{" "}
+            {type === "youtube" ||
+            type === "facebook" ||
+            type === "app-apple" ||
+            type === "app-play"
+              ? "▶"
+              : ""}
           </span>
         )}
         {badgeText == null && (
-          <span className={` absolute top-2 right-2 text-xs px-2 py-1 rounded text-white bg-black`}>
+          <span
+            className={` absolute top-2 right-2 text-xs px-2 py-1 rounded text-white bg-black`}
+          >
             Images
           </span>
         )}
         <div className="mt-5">{children}</div>
       </div>
     </a>
-  );
+  )
 }
