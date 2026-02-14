@@ -34,7 +34,7 @@ export default function ScanPage() {
 
   return (
     <div style={{ textAlign: 'center', marginTop: '50px' }}>
-      <h1>Random Hadees</h1>
+      <h1>Random Hadith</h1>
       <p style={{ fontSize: '1.5rem' }}>{hadees}</p>
     </div>
   )

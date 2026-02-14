@@ -26,7 +26,7 @@ export const Hadith = ({
         )}
       </div>
       <div className="flex flex-row justify-between"></div>
-      <h1 className="font-bold text-xl mb-2">Hadees</h1>
+      <h1 className="font-bold text-xl mb-2">Hadith</h1>
       <div className="flex flex-row  gap-4 justify-end">
         <p>Share</p>
         <p

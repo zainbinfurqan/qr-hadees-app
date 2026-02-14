@@ -5,6 +5,7 @@ import { useRequestNotification } from "./components/RequestNotification";
 import { onMessage } from "firebase/messaging";
 import HalfModalExample from "./components/BotttomModel";
 import { resourcesLinks } from "./constants/constants";
+import HadithDropdown from './components/options'
 import { Share  } from "lucide-react";
 import Image from "next/image";
 
@@ -50,17 +51,12 @@ enableNotifications()
   return (
     <div className="flex py-10 flex-col min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
       <div className="flex justify-evenly w-full px-7">
+        <HadithDropdown />
         <a
-          className="self-end mx-2 top-4 right-4 bg-blue-500 hover:bg-blue-700 text-white text-sm   py-1 px-2 rounded"
-          href="/another"
+          className="self-end mx-2 top-4 right-4 text-black underline text-sm py-2 px-3 rounded"
+          href="/naats"
         >
-          Random Hadith
-        </a>
-        <a
-          className="self-end mx-2 top-4 right-4 bg-blue-500 hover:bg-blue-700 text-white text-sm py-1 px-2 rounded"
-          href="/ramadan"
-        >
-          Ramadan/Fasting Hadith
+          Naats
         </a>
       </div>
       <LinkCard url={resourcesLinks[9]}>
