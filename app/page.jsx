@@ -49,7 +49,7 @@ enableNotifications()
   }, []);
 
   return (
-    <div className="flex py-10 flex-col min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
+    <div className="w-96 m-auto flex py-10 flex-col min-h-screen items-center justify-center bg-zinc-10 font-sans dark:bg-black">
       <div className="flex justify-evenly w-full px-7">
         <HadithDropdown />
         <a

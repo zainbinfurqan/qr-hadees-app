@@ -110,7 +110,7 @@ export default function NaatPlayer() {
   }
 
   return (
-    <div className="flex flex-col gap-6 p-3">
+    <div className="w-96 m-auto flex flex-col gap-6 p-3">
       <a href="/" className="flex">
         <span aria-hidden="true" className="mr-1">
           ←
