@@ -91,6 +91,7 @@ enableNotifications()
       </LinkCard>
       <LinkCard url={resourcesLinks[0]}>{"Khutbah 6th Feb"}</LinkCard>
       <LinkCard url={resourcesLinks[1]}>{"Khutbah 30th Jan"}</LinkCard>
+      <LinkCard url={resourcesLinks[12]}>{"Khutbah 27th Feb"}</LinkCard>
       {!isPWA && (
         <HalfModalExample>
           <>
